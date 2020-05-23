@@ -18,6 +18,17 @@ let user, pantry;
 
 window.onload = onStartup();
 
+//fetch data =>
+//!!create dataRepo...!!
+//send data to dataRepo =>
+//parse data...
+//recreate data files to represent fetched data
+//!!create domUpdates file..!!
+//!!create main.js file...!!
+//use main.js to invoke domUpdates files
+
+//rename all variables to have more explicit names
+
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
