@@ -14,6 +14,7 @@ let userRepo;
 let recipeData;
 let ingredientsData;
 let user, pantry;
+let cookbook 
 
 // Fetching
 wcUsersData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
@@ -52,18 +53,6 @@ let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
 
 
-
-//fetch data =>
-//!!create dataRepo...!!
-//send data to dataRepo =>
-//parse data...
-//recreate data files to represent fetched data
-//!!create domUpdates file..!!
-//!!create main.js file...!!
-//use main.js to invoke domUpdates files
-
-//rename all variables to have more explicit names
-
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
@@ -78,7 +67,7 @@ function onStartup(wcUsersData) {
   
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   // console.log(user);
-  let cookbook = new Cookbook(recipeData);
+  cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
   populateCards(cookbook.recipes);
   console.log(cookbook.recipes);
