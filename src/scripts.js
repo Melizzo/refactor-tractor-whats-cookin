@@ -21,19 +21,26 @@ wcUsersData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/user
 .then(data => data.wcUsersData)
 .catch(err => console.log(err.message))
 
-ingredientsData = fetch(' https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
+ingredientsData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
 .then(data => data.json())
 .then(data => data.ingredientsData)
 .catch(err => console.log(err.message))
 
+recipeData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
+.then(data => data.json())
+.then(data => data.recipeData)
+.catch(err => console.log(err.message))
+
 //PROMISE
-Promise.all([wcUsersData, ingredientsData])
+Promise.all([wcUsersData, ingredientsData, recipeData])
 .then(data => {
   wcUsersData = data[0];
   ingredientsData = data[1]
+  recipeData = data[2]
 })
 .then(() => {
   userRepo = new UserRepository(wcUsersData);
+
   onStartup(wcUsersData)
   // instatitePantry()
   // instatiateIngredients()
@@ -51,7 +58,7 @@ Promise.all([wcUsersData, ingredientsData])
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
-let cookbook = new Cookbook(recipeData);
+// let cookbook = new Cookbook(recipeData);
 // let user, pantry;
 
 
@@ -64,14 +71,17 @@ function onStartup(wcUsersData) {
   // let newUser = userData.find(user => {
   //   return user.id === Number(userId);
   // });
-  console.log(wcUsersData);
+  // console.log(wcUsersData);
   
   user = new User(wcUsersData[randomNumber].id, wcUsersData[randomNumber].name, wcUsersData[randomNumber].pantry);
   // user = new User(userId, newUser.name, newUser.pantry)
-  console.log(user);
+  // console.log(user);
+  let cookbook = new Cookbook(recipeData);
   
-  pantry = new Pantry(newUser.pantry)
+  pantry = new Pantry(user.pantry)
+  
   populateCards(cookbook.recipes);
+  console.log(cookbook.recipes);
   greetUser();
 }
 
