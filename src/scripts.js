@@ -6,30 +6,70 @@ import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
+import UserRepository from './userRepository'
 
-import recipeData from './data/recipes';
-import ingredientsData from './data/ingredients';
-import users from './data/users';
+// GLOBALS
+let wcUsersData;
+let userRepo;
+let recipeData;
+let ingredientsData;
+let user, pantry;
+
+// Fetching
+wcUsersData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
+.then(data => data.json())
+.then(data => data.wcUsersData)
+.catch(err => console.log(err.message))
+
+ingredientsData = fetch(' https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
+.then(data => data.json())
+.then(data => data.ingredientsData)
+.catch(err => console.log(err.message))
+
+//PROMISE
+Promise.all([wcUsersData, ingredientsData])
+.then(data => {
+  wcUsersData = data[0];
+  ingredientsData = data[1]
+})
+.then(() => {
+  userRepo = new UserRepository(wcUsersData);
+  onStartup(wcUsersData)
+  // instatitePantry()
+  // instatiateIngredients()
+})
+.catch(error => {
+  console.log('Something is amiss with promise all', error)
+});
+
+
+// import recipeData from './data/recipes';
+// import ingredientsData from './data/ingredients';
+// import users from './data/users';
 
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
-let user, pantry;
+// let user, pantry;
 
-window.onload = onStartup();
 
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
-function onStartup() {
-  let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(userId, newUser.name, newUser.pantry)
+function onStartup(wcUsersData) {
+  let randomNumber = (Math.floor(Math.random() * 49) + 1)
+  // let newUser = userData.find(user => {
+  //   return user.id === Number(userId);
+  // });
+  console.log(wcUsersData);
+  
+  user = new User(wcUsersData[randomNumber].id, wcUsersData[randomNumber].name, wcUsersData[randomNumber].pantry);
+  // user = new User(userId, newUser.name, newUser.pantry)
+  console.log(user);
+  
   pantry = new Pantry(newUser.pantry)
   populateCards(cookbook.recipes);
   greetUser();
