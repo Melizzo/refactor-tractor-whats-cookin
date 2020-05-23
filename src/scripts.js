@@ -1,14 +1,16 @@
+
+// IMPORTS
 import './css/base.scss';
 import './css/styles.scss';
+import Pantry from './pantry';
+import Recipe from './recipe';
+import User from './user';
+import Cookbook from './cookbook';
 
 import recipeData from './data/recipes';
 import ingredientsData from './data/ingredients';
 import users from './data/users';
 
-import Pantry from './pantry';
-import Recipe from './recipe';
-import User from './user';
-import Cookbook from './cookbook';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
