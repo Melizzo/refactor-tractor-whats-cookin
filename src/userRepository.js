@@ -1,9 +1,9 @@
-
 class UserRepository {
-  constructor(userData) {
-    this.userData = userData;
-    this.users = [];
+    constructor(userData) {
+    if(userData) {
+      this.userData = userData;
+      this.users = [];
+    }
+    }
   }
-}
-
-export default UserRepository;
+  export default UserRepository;

@@ -42,24 +42,15 @@ Promise.all([wcUsersData, ingredientsData, recipeData])
   userRepo = new UserRepository(wcUsersData);
 
   onStartup(wcUsersData)
-  // instatitePantry()
-  // instatiateIngredients()
 })
 .catch(error => {
   console.log('Something is amiss with promise all', error)
 });
 
-
-// import recipeData from './data/recipes';
-// import ingredientsData from './data/ingredients';
-// import users from './data/users';
-
-
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
-// let cookbook = new Cookbook(recipeData);
-// let user, pantry;
+
 
 
 homeButton.addEventListener('click', cardButtonConditionals);
@@ -67,19 +58,17 @@ favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
 function onStartup(wcUsersData) {
-  let randomNumber = (Math.floor(Math.random() * 49) + 1)
+  let randomNum = (Math.floor(Math.random() * 49) + 1)
+  // original project method: we updated to new User 
   // let newUser = userData.find(user => {
   //   return user.id === Number(userId);
   // });
   // console.log(wcUsersData);
   
-  user = new User(wcUsersData[randomNumber].id, wcUsersData[randomNumber].name, wcUsersData[randomNumber].pantry);
-  // user = new User(userId, newUser.name, newUser.pantry)
+  user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   // console.log(user);
   let cookbook = new Cookbook(recipeData);
-  
   pantry = new Pantry(user.pantry)
-  
   populateCards(cookbook.recipes);
   console.log(cookbook.recipes);
   greetUser();
