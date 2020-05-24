@@ -109,6 +109,9 @@ function viewFavorites() {
 }
 
 function viewRecipesToCook() {
+  //we have to figure out how to execute a conditional
+  //that will execute if the favorite button contains favorite-active
+  //try it in a method
   console.log('hello')
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all')
@@ -121,8 +124,8 @@ function viewRecipesToCook() {
     addedRecipeButton.innerHTML = 'Refresh Recipes To Cook'
     cardArea.innerHTML = '';
     user.recipesToCook.forEach(recipe => {
-      console.log(user.recipesToCook)
-      console.log(user.favoriteRecipes)
+      let favorited = recipe.isFavorite ? "favorite-active" : ""
+      console.log(recipe)
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
       class='card'>
       <header id='${recipe.id}' class='card-header'>
@@ -133,7 +136,7 @@ function viewRecipesToCook() {
       recipes to cook'></button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
-      <button id='${recipe.id}' aria-label='favorite-button' class='favorite card-button'>
+      <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${favorited} card-button'>
       </button></header>
       <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
       <img id='${recipe.id}' tabindex='0' class='card-picture'
@@ -159,22 +162,22 @@ function favoriteCard(event) {
     event.target.classList.add('favorite-active');
     favButton.innerHTML = 'View Favorites';
     user.addToFavorites(specificRecipe);
+    console.log("favorite", user.favoriteRecipes)
   } else if (event.target.classList.contains('favorite-active')) {
     event.target.classList.remove('favorite-active');
     user.removeFromFavorites(specificRecipe)
+    console.log("not favorite", user.favoriteRecipes)
   }
 }
 
 function recipesToCookCard(event) {
   let specificRecipe = cookbook.recipes.find(recipe => {
     if (recipe.id  === Number(event.target.id)) {
+      console.log(recipe)
       return recipe;
     }
   })
-  //i dont think it is making it to this conditional --- 
-  //i reversed the order of these conditionals to see if firing first would change the outcome
-  //
-  //
+ 
   if (event.target.classList.contains('add-button-active')) {
     event.target.classList.remove('add-button-active');
     user.removeFromRecipesToCook(specificRecipe)

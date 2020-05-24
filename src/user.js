@@ -9,6 +9,7 @@ class User {
 
   addToFavorites(recipe) {
     if (!this.favoriteRecipes.includes(recipe)) {
+      recipe.isFavorite = true;
       this.favoriteRecipes.push(recipe)
     }
   }
@@ -21,6 +22,7 @@ class User {
 
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
+    recipe.isFavorite = false
     this.favoriteRecipes.splice(i, 1)
   }
 
