@@ -72,8 +72,9 @@ function onStartup(wcUsersData) {
   
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   // console.log(user);
-  cookbook = new Cookbook(recipeData);
+  cookbook = new Cookbook(recipeData, ingredientsData);
   pantry = new Pantry(user.pantry)
+  console.log(cookbook)
   populateCards(cookbook.recipes);
   console.log(cookbook.recipes);
   greetUser();
@@ -227,7 +228,10 @@ function displayDirections(event) {
       return recipe;
     }
   })
+  
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
+ 
+  console.log(recipeObject.ingredients)
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   cardArea.classList.add('all');
@@ -235,7 +239,7 @@ function displayDirections(event) {
   <p class='all-recipe-info'>
   <strong>It will cost: </strong><span class='cost recipe-info'>
   $${costInDollars}</span><br><br>
-  <strong>You will need: </strong><span class='ingredients recipe-info'></span>
+  <strong>You will need: </strong><span class='ingredients recipe-info'>${recipeObject.searchIngredientsById(ingredientsData)}</span>
   <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
   </span></ol>
   </p>`;
@@ -289,7 +293,6 @@ function populateCards(recipes) {
 };
 
 function searchRecipes() {
-  // debugger
   cardArea.innerHTML = '';
   let searchInput = document.querySelector('.search-input')
   const searchedRecipesArray = [];
