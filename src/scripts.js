@@ -171,16 +171,24 @@ function recipesToCookCard(event) {
       return recipe;
     }
   })
+  //i dont think it is making it to this conditional --- 
+  //i reversed the order of these conditionals to see if firing first would change the outcome
+  //
+  //
+  if (event.target.classList.contains('add-button-active')) {
+    event.target.classList.remove('add-button-active');
+    user.removeFromRecipesToCook(specificRecipe)
+    console.log("inside it block", user.recipesToCook)
+    return
+  }
+
   if (!event.target.classList.contains('add-button-active')) {
     event.target.classList.add('add-button-active');
     addedRecipeButton.innerHTML = 'View Recipes To Cook';
     user.addToRecipesToCook(specificRecipe);
-    // console.log(user.recipesToCook)
-  } else if (event.target.classList.contains('add-button-active')) {
-    event.target.classList.remove('add-button-active');
-    user.removeFromRecipesToCook(specificRecipe)
-    // console.log(user.recipesToCook)
-  }
+    console.log("inside second it block", user.recipesToCook)
+    return
+  } 
 }
 
 function cardButtonConditionals(event) {
