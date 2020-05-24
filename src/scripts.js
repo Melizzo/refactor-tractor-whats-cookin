@@ -174,9 +174,11 @@ function recipesToCookCard(event) {
     event.target.classList.add('add-button-active');
     addedRecipeButton.innerHTML = 'View Recipes To Cook';
     user.addToRecipesToCook(specificRecipe);
+    console.log(user.recipesToCook)
   } else if (event.target.classList.contains('add-button-active')) {
     event.target.classList.remove('add-button-active');
     user.removeFromRecipesToCook(specificRecipe)
+    console.log(user.recipesToCook)
   }
 }
 
@@ -185,6 +187,11 @@ function cardButtonConditionals(event) {
   if (event.target.classList.contains('add-button')) {
     recipesToCookCard(event);
     console.log('hello')
+  } 
+  
+  if (event.target.classList.contains('home')) {
+    addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
+    populateCards(cookbook.recipes);
   }
 
   if (event.target.classList.contains('favorite')) {
@@ -200,16 +207,6 @@ function cardButtonConditionals(event) {
 //This is going to need a listner, currently is reacting to other card button conditional -- or need to re phrase
 // original card button conditional
 
-function addRecipesToCookConditional(event) {
-  if (event.target.classList.contains('add-button')) {
-    recipesToCookCard(event);
-  } else if (event.target.classList.contains('card-picture')) {
-    displayDirections(event);
-  } else if (event.target.classList.contains('home')) {
-    addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
-    populateCards(cookbook.recipes);
-  }
-}
 
 
 function displayDirections(event) {
