@@ -6,6 +6,8 @@ class Recipe {
     this.instructions = recipe.instructions;
     this.tags = recipe.tags;
     this.ingredientsData = ingredientsData;
+    this.isFavorite = false;
+    this.isRecipeToCook = false;
   }
 
   calculateCost() {

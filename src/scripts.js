@@ -14,6 +14,7 @@ let userRepo;
 let recipeData;
 let ingredientsData;
 let user, pantry;
+let cookbook 
 
 // Fetching
 wcUsersData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
@@ -50,12 +51,13 @@ Promise.all([wcUsersData, ingredientsData, recipeData])
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
+let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
 
 
-
+cardArea.addEventListener('click', cardButtonConditionals);
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
-cardArea.addEventListener('click', cardButtonConditionals);
+addedRecipeButton.addEventListener('click', viewRecipesToCook)
 
 function onStartup(wcUsersData) {
   let randomNum = (Math.floor(Math.random() * 49) + 1)
@@ -67,7 +69,7 @@ function onStartup(wcUsersData) {
   
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   // console.log(user);
-  let cookbook = new Cookbook(recipeData);
+  cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
   populateCards(cookbook.recipes);
   console.log(cookbook.recipes);
@@ -86,17 +88,54 @@ function viewFavorites() {
     favButton.innerHTML = 'Refresh Favorites'
     cardArea.innerHTML = '';
     user.favoriteRecipes.forEach(recipe => {
+      let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
       class='card'>
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
       <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-      <img id='${recipe.id}' class='add'
-      src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-      recipes to cook'></button>
+      ${recipeToCook}
+      </button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
       <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite-active card-button'>
+      </button></header>
+      <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+      <img id='${recipe.id}' tabindex='0' class='card-picture'
+      src='${recipe.image}' alt='Food from recipe'>
+      </div>`)
+    })
+  }
+}
+
+function viewRecipesToCook() {
+  //we have to figure out how to execute a conditional
+  //that will execute if the favorite button contains favorite-active
+  //try it in a method
+  console.log('hello')
+  if (cardArea.classList.contains('all')) {
+    cardArea.classList.remove('all')
+  }
+  if (!user.recipesToCook.length) {
+    addedRecipeButton.innerHTML = 'You have no Recipes To Cook!';
+    populateCards(cookbook.recipes);
+    return
+  } else {
+    addedRecipeButton.innerHTML = 'Refresh Recipes To Cook'
+    cardArea.innerHTML = '';
+    user.recipesToCook.forEach(recipe => {
+      let favorited = recipe.isFavorite ? "favorite-active" : ""
+      let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
+      console.log(recipe)
+      cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
+      class='card'>
+      <header id='${recipe.id}' class='card-header'>
+      <label for='add-button' class='hidden'>Click to add recipe</label>
+      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+      ${recipeToCook}</button>
+      <label for='favorite-button' class='hidden'>Click to favorite recipe
+      </label>
+      <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${favorited} card-button'>
       </button></header>
       <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
       <img id='${recipe.id}' tabindex='0' class='card-picture'
@@ -128,16 +167,55 @@ function favoriteCard(event) {
   }
 }
 
+function recipesToCookCard(event) {
+  let specificRecipe = cookbook.recipes.find(recipe => {
+    if (recipe.id  === Number(event.target.id)) {
+      return recipe;
+    }
+  })
+  
+ 
+  if (event.target.innerText === '+') {
+    event.target.innerText = "-";
+    user.addToRecipesToCook(specificRecipe);
+    console.log(user.recipesToCook)
+    return
+  }
+  //checking if recipe is recipeToCook --
+  //
+  if (event.target.innerText !== '+') {
+    event.target.innerText = "+"
+    addedRecipeButton.innerHTML = 'View Recipes To Cook';
+    user.removeFromRecipesToCook(specificRecipe)
+    console.log(user.recipesToCook)
+    return
+  } 
+}
+
 function cardButtonConditionals(event) {
+  
+  if (event.target.classList.contains('add-button')) {
+    recipesToCookCard(event);
+  } 
+
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
-  } else if (event.target.classList.contains('card-picture')) {
-    displayDirections(event);
-  } else if (event.target.classList.contains('home')) {
-    favButton.innerHTML = 'View Favorites';
+  }
+  
+  if (event.target.classList.contains('home')) {
+    addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
+    favButton.innerHTML = 'View Favorites'; // have to do equivelant for recipesToCook
     populateCards(cookbook.recipes);
   }
+
+ else if (event.target.classList.contains('card-picture')) {
+    displayDirections(event);
+  } 
 }
+
+//This is going to need a listner, currently is reacting to other card button conditional -- or need to re phrase
+// original card button conditional
+
 
 
 function displayDirections(event) {
@@ -187,14 +265,13 @@ function populateCards(recipes) {
     cardArea.classList.remove('all')
   }
   recipes.forEach(recipe => {
+    let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
     cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
     class='card'>
         <header id='${recipe.id}' class='card-header'>
           <label for='add-button' class='hidden'>Click to add recipe</label>
           <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-            <img id='${recipe.id} favorite' class='add'
-            src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-            recipes to cook'>
+            ${recipeToCook}
           </button>
           <label for='favorite-button' class='hidden'>Click to favorite recipe
           </label>
