@@ -92,7 +92,7 @@ function viewFavorites() {
       class='card'>
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+      <button id='${recipe.id}' aria-label='add-button' class='add-button add-button-active card-button'>
       <img id='${recipe.id}' class='add'
       src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
       recipes to cook'></button>
@@ -122,17 +122,18 @@ function viewRecipesToCook() {
     cardArea.innerHTML = '';
     user.recipesToCook.forEach(recipe => {
       console.log(user.recipesToCook)
+      console.log(user.favoriteRecipes)
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
       class='card'>
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+      <button id='${recipe.id}' aria-label='add-button' class='add-button add-button-active card-button'>
       <img id='${recipe.id}' class='add'
       src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
       recipes to cook'></button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
-      <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite-active card-button'>
+      <button id='${recipe.id}' aria-label='favorite-button' class='favorite card-button'>
       </button></header>
       <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
       <img id='${recipe.id}' tabindex='0' class='card-picture'
@@ -174,11 +175,11 @@ function recipesToCookCard(event) {
     event.target.classList.add('add-button-active');
     addedRecipeButton.innerHTML = 'View Recipes To Cook';
     user.addToRecipesToCook(specificRecipe);
-    console.log(user.recipesToCook)
+    // console.log(user.recipesToCook)
   } else if (event.target.classList.contains('add-button-active')) {
     event.target.classList.remove('add-button-active');
     user.removeFromRecipesToCook(specificRecipe)
-    console.log(user.recipesToCook)
+    // console.log(user.recipesToCook)
   }
 }
 
@@ -188,20 +189,20 @@ function cardButtonConditionals(event) {
     recipesToCookCard(event);
     console.log('hello')
   } 
-  
-  if (event.target.classList.contains('home')) {
-    addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
-    populateCards(cookbook.recipes);
-  }
 
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
-  } else if (event.target.classList.contains('card-picture')) {
-    displayDirections(event);
-  } else if (event.target.classList.contains('home')) {
+  }
+  
+  if (event.target.classList.contains('home')) {
+    addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
     favButton.innerHTML = 'View Favorites'; // have to do equivelant for recipesToCook
     populateCards(cookbook.recipes);
   }
+
+ else if (event.target.classList.contains('card-picture')) {
+    displayDirections(event);
+  } 
 }
 
 //This is going to need a listner, currently is reacting to other card button conditional -- or need to re phrase
