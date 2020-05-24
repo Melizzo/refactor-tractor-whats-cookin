@@ -52,12 +52,15 @@ let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
+let searchRecipesButton = document.querySelector('.search-button')
 
 
 cardArea.addEventListener('click', cardButtonConditionals);
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 addedRecipeButton.addEventListener('click', viewRecipesToCook)
+searchRecipesButton.addEventListener('click', searchRecipes)
+
 
 function onStartup(wcUsersData) {
   let randomNum = (Math.floor(Math.random() * 49) + 1)
@@ -284,3 +287,17 @@ function populateCards(recipes) {
   })
   getFavorites();
 };
+
+function searchRecipes() {
+  // debugger
+  cardArea.innerHTML = '';
+  let searchInput = document.querySelector('.search-input')
+  const searchedRecipesArray = [];
+  for (let i = 0; i < cookbook.recipes.length; i++) {
+    if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.includes(searchInput.value)) {
+      console.log('We got this')
+      searchedRecipesArray.push(cookbook.recipes[i]);
+    }
+  }
+  return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes);
+ }
