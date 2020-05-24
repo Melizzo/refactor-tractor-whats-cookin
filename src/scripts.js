@@ -93,9 +93,8 @@ function viewFavorites() {
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
       <button id='${recipe.id}' aria-label='add-button' class='add-button add-button-active card-button'>
-      <img id='${recipe.id}' class='add'
-      src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-      recipes to cook'></button>
+      Add Button
+      </button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
       <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite-active card-button'>
@@ -125,15 +124,14 @@ function viewRecipesToCook() {
     cardArea.innerHTML = '';
     user.recipesToCook.forEach(recipe => {
       let favorited = recipe.isFavorite ? "favorite-active" : ""
+      let recipeToCook = recipe.isRecipeToCook ? "Remove Button" : "Add Button"
       console.log(recipe)
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
       class='card'>
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
       <button id='${recipe.id}' aria-label='add-button' class='add-button add-button-active card-button'>
-      <img id='${recipe.id}' class='add'
-      src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-      recipes to cook'></button>
+      ${recipeToCook}</button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
       <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${favorited} card-button'>
@@ -162,34 +160,33 @@ function favoriteCard(event) {
     event.target.classList.add('favorite-active');
     favButton.innerHTML = 'View Favorites';
     user.addToFavorites(specificRecipe);
-    console.log("favorite", user.favoriteRecipes)
   } else if (event.target.classList.contains('favorite-active')) {
     event.target.classList.remove('favorite-active');
     user.removeFromFavorites(specificRecipe)
-    console.log("not favorite", user.favoriteRecipes)
   }
 }
 
 function recipesToCookCard(event) {
   let specificRecipe = cookbook.recipes.find(recipe => {
     if (recipe.id  === Number(event.target.id)) {
-      console.log(recipe)
       return recipe;
     }
   })
+  
  
-  if (event.target.classList.contains('add-button-active')) {
-    event.target.classList.remove('add-button-active');
-    user.removeFromRecipesToCook(specificRecipe)
-    console.log("inside it block", user.recipesToCook)
+  if (event.target.innerText === 'Add Button') {
+    event.target.innerText = "Remove Add";
+    user.addToRecipesToCook(specificRecipe);
+    console.log(user.recipesToCook)
     return
   }
-
-  if (!event.target.classList.contains('add-button-active')) {
-    event.target.classList.add('add-button-active');
+  //checking if recipe is recipeToCook --
+  //
+  if (event.target.innerText !== 'Add Button') {
+    event.target.innerText = "Add Button"
     addedRecipeButton.innerHTML = 'View Recipes To Cook';
-    user.addToRecipesToCook(specificRecipe);
-    console.log("inside second it block", user.recipesToCook)
+    user.removeFromRecipesToCook(specificRecipe)
+    console.log(user.recipesToCook)
     return
   } 
 }
@@ -198,7 +195,6 @@ function cardButtonConditionals(event) {
   
   if (event.target.classList.contains('add-button')) {
     recipesToCookCard(event);
-    console.log('hello')
   } 
 
   if (event.target.classList.contains('favorite')) {
@@ -268,14 +264,13 @@ function populateCards(recipes) {
     cardArea.classList.remove('all')
   }
   recipes.forEach(recipe => {
+    let recipeToCook = recipe.isRecipeToCook ? "Remove Button" : "Add Button"
     cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
     class='card'>
         <header id='${recipe.id}' class='card-header'>
           <label for='add-button' class='hidden'>Click to add recipe</label>
           <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-            <img id='${recipe.id} favorite' class='add'
-            src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-            recipes to cook'>
+            ${recipeToCook}
           </button>
           <label for='favorite-button' class='hidden'>Click to favorite recipe
           </label>

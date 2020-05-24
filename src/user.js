@@ -16,18 +16,20 @@ class User {
 
   addToRecipesToCook(recipe) {
     if (!this.recipesToCook.includes(recipe)) {
+      recipe.isRecipeToCook = true;
       this.recipesToCook.push(recipe)
     }
   }
 
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
-    recipe.isFavorite = false
+    recipe.isFavorite = false;
     this.favoriteRecipes.splice(i, 1)
   }
 
   removeFromRecipesToCook(recipe) {
     const i = this.recipesToCook.indexOf(recipe);
+    recipe.isRecipeToCook = false;
     this.recipesToCook.splice(i, 1)
   }
 

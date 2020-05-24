@@ -193,7 +193,7 @@ main {
 }
 
 .add-button-active {
-  background-color: red;
-  /* background-repeat: no-repeat; */
+  background-image: url(https://snipstock.com/assets/cdn/png/b057de3152621698ed9e9b1f9fda0a8e.png);
+  background-repeat: no-repeat;
 }
 
