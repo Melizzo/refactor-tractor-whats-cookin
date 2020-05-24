@@ -88,12 +88,13 @@ function viewFavorites() {
     favButton.innerHTML = 'Refresh Favorites'
     cardArea.innerHTML = '';
     user.favoriteRecipes.forEach(recipe => {
+      let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
       class='card'>
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}' aria-label='add-button' class='add-button add-button-active card-button'>
-      Add Button
+      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+      ${recipeToCook}
       </button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
@@ -124,13 +125,13 @@ function viewRecipesToCook() {
     cardArea.innerHTML = '';
     user.recipesToCook.forEach(recipe => {
       let favorited = recipe.isFavorite ? "favorite-active" : ""
-      let recipeToCook = recipe.isRecipeToCook ? "Remove Button" : "Add Button"
+      let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
       console.log(recipe)
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
       class='card'>
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}' aria-label='add-button' class='add-button add-button-active card-button'>
+      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
       ${recipeToCook}</button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
@@ -174,16 +175,16 @@ function recipesToCookCard(event) {
   })
   
  
-  if (event.target.innerText === 'Add Button') {
-    event.target.innerText = "Remove Add";
+  if (event.target.innerText === '+') {
+    event.target.innerText = "-";
     user.addToRecipesToCook(specificRecipe);
     console.log(user.recipesToCook)
     return
   }
   //checking if recipe is recipeToCook --
   //
-  if (event.target.innerText !== 'Add Button') {
-    event.target.innerText = "Add Button"
+  if (event.target.innerText !== '+') {
+    event.target.innerText = "+"
     addedRecipeButton.innerHTML = 'View Recipes To Cook';
     user.removeFromRecipesToCook(specificRecipe)
     console.log(user.recipesToCook)
@@ -264,7 +265,7 @@ function populateCards(recipes) {
     cardArea.classList.remove('all')
   }
   recipes.forEach(recipe => {
-    let recipeToCook = recipe.isRecipeToCook ? "Remove Button" : "Add Button"
+    let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
     cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
     class='card'>
         <header id='${recipe.id}' class='card-header'>
