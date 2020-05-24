@@ -1,6 +1,7 @@
 class Cookbook {
-  constructor(data) {
+  constructor(data, ingredientsData) {
     this.recipes = data;
+    this.recipesWithNames = this.addNameToRecipeIngredients(ingredientsData)
   }
 
   findRecipe(searchText) {
@@ -11,6 +12,21 @@ class Cookbook {
       });
     })
   }
+
+  addNameToRecipeIngredients(ingredientsData) {
+    const ingredientNames = this.recipes.map(recipe => {
+      recipe.ingredients.forEach(ingredient => {
+        ingredientsData.find(item => {
+         if(ingredient.id === item.id) {
+           ingredient['name'] = item.name
+         }
+         return ingredient
+       })
+      })  
+      return ingredientNames
+    })
+    return recipe
+   }
 }
 
 export default Cookbook;
