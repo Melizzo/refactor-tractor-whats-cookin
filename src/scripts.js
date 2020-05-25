@@ -239,7 +239,7 @@ function displayDirections(event) {
   <p class='all-recipe-info'>
   <strong>It will cost: </strong><span class='cost recipe-info'>
   $${costInDollars}</span><br><br>
-  <strong>You will need: </strong><span class='ingredients recipe-info'>${recipeObject.searchIngredientsById(ingredientsData)}</span>
+  <strong>You will need: </strong><span class='ingredients recipe-info'></span>
   <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
   </span></ol>
   </p>`;
@@ -301,7 +301,11 @@ function searchRecipes() {
     if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name === searchInput.value)) {
       console.log('We got this')
       searchedRecipesArray.push(cookbook.recipes[i]);
-    }
+    } 
   }
-  return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes);
+  if(searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes)) {
+  return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes) 
+  } else {
+    cardArea.innerText = `No ${searchInput.value} found!`
+  }
  }
