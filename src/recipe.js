@@ -14,7 +14,6 @@ class Recipe {
    const ingredientNames = this.ingredients.map(ingredient => {
       ingredientsData.find(item => {
         if(ingredient.id === item.id) {
-          console.log(item.id)
           ingredient['name'] = item.name
         }
       })
