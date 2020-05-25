@@ -50,7 +50,7 @@ class Cookbook {
       })
       return ingredient
     })
-    console.log(ingredientNames)
+
     return ingredientNames
   }
 }
