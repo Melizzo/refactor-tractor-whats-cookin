@@ -297,7 +297,8 @@ function searchRecipes() {
   let searchInput = document.querySelector('.search-input')
   const searchedRecipesArray = [];
   for (let i = 0; i < cookbook.recipes.length; i++) {
-    if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.includes(searchInput.value)) {
+    console.log('ingredients', cookbook.recipes[i].ingredients)
+    if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name === searchInput.value)) {
       console.log('We got this')
       searchedRecipesArray.push(cookbook.recipes[i]);
     }
