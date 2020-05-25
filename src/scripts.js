@@ -42,7 +42,9 @@ Promise.all([wcUsersData, ingredientsData, recipeData])
 .then(() => {
   userRepo = new UserRepository(wcUsersData);
 
-  onStartup(wcUsersData)
+  onStartup(wcUsersData, ingredientsData)
+  // cookbook.recipesWithNames = cookbook.allPossibleIngredients()
+  cookbook.returnIngredientsWithNames(ingredientsData)
 })
 .catch(error => {
   console.log('Something is amiss with promise all', error)
@@ -52,14 +54,17 @@ let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
+let searchRecipesButton = document.querySelector('.search-button')
 
 
 cardArea.addEventListener('click', cardButtonConditionals);
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 addedRecipeButton.addEventListener('click', viewRecipesToCook)
+searchRecipesButton.addEventListener('click', searchRecipes)
 
-function onStartup(wcUsersData) {
+
+function onStartup(wcUsersData, ingredientsData) {
   let randomNum = (Math.floor(Math.random() * 49) + 1)
   // original project method: we updated to new User 
   // let newUser = userData.find(user => {
@@ -72,7 +77,6 @@ function onStartup(wcUsersData) {
   cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
   populateCards(cookbook.recipes);
-  console.log(cookbook.recipes);
   greetUser();
 }
 
@@ -224,7 +228,10 @@ function displayDirections(event) {
       return recipe;
     }
   })
+  
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
+  
+  console.log(recipeObject.ingredients)
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   cardArea.classList.add('all');
@@ -284,3 +291,21 @@ function populateCards(recipes) {
   })
   getFavorites();
 };
+
+function searchRecipes() {
+  cardArea.innerHTML = '';
+  let searchInput = document.querySelector('.search-input')
+  const searchedRecipesArray = [];
+  for (let i = 0; i < cookbook.recipes.length; i++) {
+    console.log('ingredients', cookbook.recipes[i].ingredients)
+    if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name === searchInput.value)) {
+      console.log('We got this')
+      searchedRecipesArray.push(cookbook.recipes[i]);
+    } 
+  }
+  if(searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes)) {
+  return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes) 
+  } else {
+    cardArea.innerText = `No ${searchInput.value} found!`
+  }
+ }

@@ -10,6 +10,18 @@ class Recipe {
     this.isRecipeToCook = false;
   }
 
+  searchIngredientsById(ingredientsData) {
+   const ingredientNames = this.ingredients.map(ingredient => {
+      ingredientsData.find(item => {
+        if(ingredient.id === item.id) {
+          ingredient['name'] = item.name
+        }
+      })
+      return ingredient
+    })
+    return ingredientNames
+  }
+
   calculateCost() {
     let costCounter = 0;
     this.ingredients.forEach(ingredient => {
