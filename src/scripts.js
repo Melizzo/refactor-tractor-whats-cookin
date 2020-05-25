@@ -256,6 +256,8 @@ function displayDirections(event) {
     ${instruction.instruction}</li>
     `)
   })
+  console.log('user pantry', user.pantry);
+  
 }
 
 function getFavorites() {
