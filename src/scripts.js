@@ -43,6 +43,7 @@ Promise.all([wcUsersData, ingredientsData, recipeData])
   userRepo = new UserRepository(wcUsersData);
 
   onStartup(wcUsersData)
+  cookbook.recipesWithNames = cookbook.addNameToRecipeIngredients(ingredientsData)
 })
 .catch(error => {
   console.log('Something is amiss with promise all', error)
@@ -230,7 +231,7 @@ function displayDirections(event) {
   })
   
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
- 
+  
   console.log(recipeObject.ingredients)
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
