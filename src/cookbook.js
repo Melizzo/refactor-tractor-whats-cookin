@@ -1,7 +1,7 @@
 class Cookbook {
-  constructor(data, ingredientsData) {
+  constructor(data, recipeWithNames) {
     this.recipes = data;
-    this.recipesWithNames = this.addNameToRecipeIngredients(ingredientsData)
+    this.recipesWithNames = recipeWithNames
   }
 
   findRecipe(searchText) {
@@ -14,18 +14,18 @@ class Cookbook {
   }
 
   addNameToRecipeIngredients(ingredientsData) {
+    console.log('recipes', this.recipes)
     const ingredientNames = this.recipes.map(recipe => {
       recipe.ingredients.forEach(ingredient => {
-        ingredientsData.find(item => {
+        ingredientsData.forEach(item => {
          if(ingredient.id === item.id) {
            ingredient['name'] = item.name
          }
          return ingredient
        })
       })  
-      return ingredientNames
     })
-    return recipe
+    return ingredientNames
    }
 }
 
