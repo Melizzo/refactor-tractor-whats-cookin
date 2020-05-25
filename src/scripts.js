@@ -42,8 +42,9 @@ Promise.all([wcUsersData, ingredientsData, recipeData])
 .then(() => {
   userRepo = new UserRepository(wcUsersData);
 
-  onStartup(wcUsersData)
-  cookbook.recipesWithNames = cookbook.addNameToRecipeIngredients(ingredientsData)
+  onStartup(wcUsersData, ingredientsData)
+  // cookbook.recipesWithNames = cookbook.allPossibleIngredients()
+  cookbook.returnIngredientsWithNames(ingredientsData)
 })
 .catch(error => {
   console.log('Something is amiss with promise all', error)
@@ -63,7 +64,7 @@ addedRecipeButton.addEventListener('click', viewRecipesToCook)
 searchRecipesButton.addEventListener('click', searchRecipes)
 
 
-function onStartup(wcUsersData) {
+function onStartup(wcUsersData, ingredientsData) {
   let randomNum = (Math.floor(Math.random() * 49) + 1)
   // original project method: we updated to new User 
   // let newUser = userData.find(user => {
@@ -73,11 +74,9 @@ function onStartup(wcUsersData) {
   
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   // console.log(user);
-  cookbook = new Cookbook(recipeData, ingredientsData);
+  cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
-  console.log(cookbook)
   populateCards(cookbook.recipes);
-  console.log(cookbook.recipes);
   greetUser();
 }
 
