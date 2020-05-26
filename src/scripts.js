@@ -93,32 +93,11 @@ function viewFavorites() {
   } else {
     favButton.innerHTML = 'Refresh Favorites'
     cardArea.innerHTML = '';
-    user.favoriteRecipes.forEach(recipe => {
-      let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
-      cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-      class='card'>
-      <header id='${recipe.id}' class='card-header'>
-      <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-      ${recipeToCook}
-      </button>
-      <label for='favorite-button' class='hidden'>Click to favorite recipe
-      </label>
-      <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite-active card-button'>
-      </button></header>
-      <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-      <img id='${recipe.id}' tabindex='0' class='card-picture'
-      src='${recipe.image}' alt='Food from recipe'>
-      </div>`)
-    })
+    createRecipeCards(user.favoriteRecipes)
   }
 }
 
 function viewRecipesToCook() {
-  //we have to figure out how to execute a conditional
-  //that will execute if the favorite button contains favorite-active
-  //try it in a method
-  console.log('hello')
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all')
   }
@@ -129,25 +108,7 @@ function viewRecipesToCook() {
   } else {
     addedRecipeButton.innerHTML = 'Refresh Recipes To Cook'
     cardArea.innerHTML = '';
-    user.recipesToCook.forEach(recipe => {
-      let favorited = recipe.isFavorite ? "favorite-active" : ""
-      let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
-      console.log(recipe)
-      cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-      class='card'>
-      <header id='${recipe.id}' class='card-header'>
-      <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-      ${recipeToCook}</button>
-      <label for='favorite-button' class='hidden'>Click to favorite recipe
-      </label>
-      <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${favorited} card-button'>
-      </button></header>
-      <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-      <img id='${recipe.id}' tabindex='0' class='card-picture'
-      src='${recipe.image}' alt='Food from recipe'>
-      </div>`)
-    })
+    createRecipeCards(user.recipesToCook)
   }
 }
 
@@ -179,21 +140,17 @@ function recipesToCookCard(event) {
       return recipe;
     }
   })
-  
  
   if (event.target.innerText === '+') {
     event.target.innerText = "-";
     user.addToRecipesToCook(specificRecipe);
-    console.log(user.recipesToCook)
     return
   }
-  //checking if recipe is recipeToCook --
-  //
+
   if (event.target.innerText !== '+') {
     event.target.innerText = "+"
     addedRecipeButton.innerHTML = 'View Recipes To Cook';
     user.removeFromRecipesToCook(specificRecipe)
-    console.log(user.recipesToCook)
     return
   } 
 }
@@ -233,7 +190,6 @@ function displayDirections(event) {
   
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
   
-  console.log(recipeObject.ingredients)
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   cardArea.classList.add('all');
@@ -260,38 +216,12 @@ function displayDirections(event) {
   })
 }
 
-function getFavorites() {
-  if (user.favoriteRecipes.length) {
-    user.favoriteRecipes.forEach(recipe => {
-      document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
-    })
-  } else return
-}
-
 function populateCards(recipes) {
   cardArea.innerHTML = '';
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all')
   }
-  recipes.forEach(recipe => {
-    let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
-    cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-    class='card'>
-        <header id='${recipe.id}' class='card-header'>
-          <label for='add-button' class='hidden'>Click to add recipe</label>
-          <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-            ${recipeToCook}
-          </button>
-          <label for='favorite-button' class='hidden'>Click to favorite recipe
-          </label>
-          <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
-        </header>
-          <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-          <img id='${recipe.id}' tabindex='0' class='card-picture'
-          src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-    </div>`)
-  })
-  getFavorites();
+  createRecipeCards(recipes)
 };
 
 function searchRecipes() {
@@ -299,9 +229,7 @@ function searchRecipes() {
   let searchInput = document.querySelector('.search-input')
   const searchedRecipesArray = [];
   for (let i = 0; i < cookbook.recipes.length; i++) {
-    console.log('ingredients', cookbook.recipes[i].ingredients)
     if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name === searchInput.value)) {
-      console.log('We got this')
       searchedRecipesArray.push(cookbook.recipes[i]);
     } 
   }
@@ -324,12 +252,11 @@ function searchRecipes() {
   createRecipeCards(filteredRecipes)
 }
 
-
+//move to DOM updates
 function createRecipeCards(recipeArray) {
   recipeArray.forEach(recipe => {
     let favorited = recipe.isFavorite ? "favorite-active" : ""
     let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
-    console.log(recipe)
     cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
     class='card'>
     <header id='${recipe.id}' class='card-header'>
