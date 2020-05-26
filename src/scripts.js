@@ -190,6 +190,7 @@ function displayDirections(event) {
   
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
   
+ 
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   cardArea.classList.add('all');
@@ -229,13 +230,17 @@ function searchRecipes() {
   let searchInput = document.querySelector('.search-input')
   const searchedRecipesArray = [];
   for (let i = 0; i < cookbook.recipes.length; i++) {
+    console.log('ingredients', cookbook.recipes[i].ingredients)
     if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name === searchInput.value)) {
+      // console.log('We got this')
       searchedRecipesArray.push(cookbook.recipes[i]);
     } 
   }
-  if(searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes)) {
-  return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes) 
+  if(searchInput.value && searchedRecipesArray.length > 0) {
+    console.log('searched recipes 1', searchedRecipesArray)
+    return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes) 
   } else {
+    console.log('searched recipes 2', searchedRecipesArray)
     cardArea.innerText = `No ${searchInput.value} found!`
   }
  }
