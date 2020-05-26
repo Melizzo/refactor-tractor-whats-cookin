@@ -238,10 +238,13 @@ function searchRecipes() {
   }
   if(searchInput.value && searchedRecipesArray.length > 0) {
     console.log('searched recipes 1', searchedRecipesArray)
-    return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes) 
+    // return searchInput.value ? populateCards(searchedRecipesArray) : populateCards(cookbook.recipes) 
+    createRecipeCards(searchedRecipesArray)
+    searchInput.value = ''
   } else {
     console.log('searched recipes 2', searchedRecipesArray)
-    cardArea.innerText = `No ${searchInput.value} found!`
+    cardArea.innerText = `No ${searchInput.value} for you!`
+    searchInput.value = ''
   }
  }
 
