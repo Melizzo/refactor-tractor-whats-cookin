@@ -215,9 +215,11 @@ function displayDirections(event) {
     ${instruction.instruction}</li>
     `)
   })
-  console.log('user pantry', user.pantry);
+  // console.log('user pantry', user.pantry);
+  // console.log(recipeObject.ingredients);
+  
   // Compare recipeObject.ingredients (line 248) to user.pantry, and find a list of ingredients that are missing
-  pantry.compareIngredients(recipeObject)
+  pantry.compareIngredients(recipeObject.ingredients)
 }
 
 function populateCards(recipes) {
@@ -239,7 +241,6 @@ function searchRecipes() {
     } 
   }
   if(searchInput.value && searchedRecipesArray.length > 0) {
-    console.log('searched recipes 1', searchedRecipesArray)
     createRecipeCards(searchedRecipesArray)
     searchInput.value = ''
   } else {
