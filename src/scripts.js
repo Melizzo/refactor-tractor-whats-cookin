@@ -233,7 +233,8 @@ function searchRecipes() {
   let searchInput = document.querySelector('.search-input')
   const searchedRecipesArray = [];
   for (let i = 0; i < cookbook.recipes.length; i++) {
-    if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name === searchInput.value)) {
+    const lowercaseSearchQuery = searchInput.value.toLowerCase();
+    if (cookbook.recipes[i].name.toLowerCase().includes(lowercaseSearchQuery) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name.toLowerCase() === lowercaseSearchQuery)) {
       searchedRecipesArray.push(cookbook.recipes[i]);
     } 
   }
