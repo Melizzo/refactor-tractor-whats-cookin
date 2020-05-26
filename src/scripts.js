@@ -321,27 +321,31 @@ function searchRecipes() {
       filteredRecipes.push(recipe);
     }
   });
-
-  filteredRecipes.forEach((recipe) => {
-    let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
-    cardArea.innerHTML +=
-      `<div id='${recipe.id}' class='card'>
-      <header id='${recipe.id}' class='card-header'>
-        <label for='add-button' class='hidden'>Click to add recipe</label>
-        <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-          ${recipeToCook}
-        </button>
-        <label for='favorite-button' class='hidden'>Click to favorite recipe
-        </label>
-        <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
-      </header>
-        <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-        <img id='${recipe.id}' tabindex='0' class='card-picture'
-        src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-  </div>`
-  });
+  createRecipeCards(filteredRecipes)
 }
 
+
+function createRecipeCards(recipeArray) {
+  recipeArray.forEach(recipe => {
+    let favorited = recipe.isFavorite ? "favorite-active" : ""
+    let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
+    console.log(recipe)
+    cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
+    class='card'>
+    <header id='${recipe.id}' class='card-header'>
+    <label for='add-button' class='hidden'>Click to add recipe</label>
+    <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+    ${recipeToCook}</button>
+    <label for='favorite-button' class='hidden'>Click to favorite recipe
+    </label>
+    <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${favorited} card-button'>
+    </button></header>
+    <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+    <img id='${recipe.id}' tabindex='0' class='card-picture'
+    src='${recipe.image}' alt='Food from recipe'>
+    </div>`)
+  })
+} 
 
 
  /*
