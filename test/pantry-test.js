@@ -12,8 +12,8 @@ describe('Pantry', () => {
   });
 
 
-  it('Should hold its own ingredient data', () => {
-    expect(pantry.ingredients).to.equal(recipeData[47].ingredients);
+  it('Should be able to tell a user what ingredients are missing', () => {
+    expect(pantry.compareIngredients).to.equal(recipeData[47].ingredients);
   })
 
 
