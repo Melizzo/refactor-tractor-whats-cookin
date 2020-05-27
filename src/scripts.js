@@ -220,6 +220,8 @@ function displayDirections(event) {
   
   // Compare recipeObject.ingredients (line 248) to user.pantry, and find a list of ingredients that are missing
   pantry.findMissingIngredients(recipeObject.ingredients)
+  console.log(pantry.findMissingIngredients(recipeObject.ingredients));
+  
 }
 
 function populateCards(recipes) {

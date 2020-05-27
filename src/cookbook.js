@@ -36,7 +36,7 @@ class Cookbook {
         }
       })
     })
-    console.log('allingredients', allIngredients)
+    // console.log('allingredients', allIngredients)
     return allIngredients
   }
 
