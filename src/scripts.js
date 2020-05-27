@@ -215,6 +215,13 @@ function displayDirections(event) {
     ${instruction.instruction}</li>
     `)
   })
+  // console.log('user pantry', user.pantry);
+  // console.log(recipeObject.ingredients);
+  
+  // Compare recipeObject.ingredients (line 248) to user.pantry, and find a list of ingredients that are missing
+  pantry.findMissingIngredients(recipeObject.ingredients)
+  console.log(pantry.findMissingIngredients(recipeObject.ingredients));
+  
 }
 
 function populateCards(recipes) {
@@ -230,12 +237,12 @@ function searchRecipes() {
   let searchInput = document.querySelector('.search-input')
   const searchedRecipesArray = [];
   for (let i = 0; i < cookbook.recipes.length; i++) {
-    if (cookbook.recipes[i].name.includes(searchInput.value) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name === searchInput.value)) {
+    const lowercaseSearchQuery = searchInput.value.toLowerCase();
+    if (cookbook.recipes[i].name.toLowerCase().includes(lowercaseSearchQuery) || cookbook.recipes[i].ingredients.find(ingredient => ingredient.name.toLowerCase() === lowercaseSearchQuery)) {
       searchedRecipesArray.push(cookbook.recipes[i]);
     } 
   }
   if(searchInput.value && searchedRecipesArray.length > 0) {
-    console.log('searched recipes 1', searchedRecipesArray)
     createRecipeCards(searchedRecipesArray)
     searchInput.value = ''
   } else {
