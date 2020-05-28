@@ -1,7 +1,9 @@
 class Pantry {
   constructor(userIngredients) {
-    this.pantry = userIngredients;
-    this.neededIngredients = []
+    if(userIngredients) {
+      this.pantry = userIngredients;
+      this.neededIngredients = []
+    }
   }
   
   findMissingIngredients(recipeIngredients) {
