@@ -219,8 +219,8 @@ function displayDirections(event) {
   // console.log(recipeObject.ingredients);
   
   // Compare recipeObject.ingredients (line 248) to user.pantry, and find a list of ingredients that are missing
-  pantry.findMissingIngredients(recipeObject.ingredients)
-  console.log(pantry.findMissingIngredients(recipeObject.ingredients));
+  pantry.returnCombinedArrays(recipeObject.ingredients)
+  console.log(pantry.returnCombinedArrays(recipeObject.ingredients));
   
 }
 
