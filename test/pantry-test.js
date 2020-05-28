@@ -1,11 +1,14 @@
 import { expect } from 'chai';
 
 import Pantry from '../src/pantry.js';
-import User from '../src/pantry.js';
+import User from '../src/user.js';
+import Recipe from '../src/recipe.js'
+import recipeData from '../src/data/recipes.js'
 import ingredientsData from '../src/data/ingredients.js';
 
 let pantry;
-let user
+let user;
+let recipe
 
 describe('Pantry', () => {
   beforeEach(() => {
@@ -23,9 +26,15 @@ describe('Pantry', () => {
         'amount': 3
       }]
     );
-
+      console.log('user', user);
+      
     pantry = new Pantry(user.pantry);
-    recipe = new Recipe();
+
+    console.log('the pantry', pantry);
+    
+    console.log('pantry', user.pantry);
+    
+    recipe = new Recipe(recipeData[47], ingredientsData)
 
   });
   it('should be a function', function() {
@@ -44,8 +53,7 @@ describe('Pantry', () => {
   })
 
   it('should be able to find missing ingredients', () => {
-    pantry.findMissingIngredients();
-    expect(pantry.findMissingIngredients).to.equal()
+    expect(pantry.findMissingIngredients(recipeData[47].ingredients)).to.equal()
   })
 
 
