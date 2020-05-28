@@ -9,8 +9,6 @@ class Pantry {
   findMissingIngredients(recipeIngredients)  {
     let ingredientsWeHave = []; 
     const ingredientsWeNeed = []
-    console.log('pantry', this.pantry);
-    console.log('recipeIngredients 1', recipeIngredients)
     recipeIngredients.forEach(recipeIngredient => {
       this.pantry.forEach(item => { 
         if(item.ingredient === recipeIngredient.id && !ingredientsWeHave.includes(recipeIngredient)){
