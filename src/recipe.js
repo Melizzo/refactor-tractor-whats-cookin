@@ -1,5 +1,6 @@
 class Recipe {
   constructor(recipe, ingredientsData) {
+    if(recipe, ingredientsData) {
     this.name = recipe.name;
     this.id = recipe.id;
     this.ingredients = recipe.ingredients;
@@ -8,6 +9,7 @@ class Recipe {
     this.ingredientsData = ingredientsData;
     this.isFavorite = false;
     this.isRecipeToCook = false;
+    }
   }
 
   searchIngredientsById(ingredientsData) {
