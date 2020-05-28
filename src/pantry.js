@@ -3,31 +3,48 @@ class Pantry {
     this.pantry = userIngredients;
     this.neededIngredients = []
   }
- 
-  // add an array to push in, for ins don't return arrays
   
-  findMissingIngredients(recipeIngredients)  {
-    let ingredientsWeHave = []; 
-    const ingredientsWeNeed = []
-    console.log('pantry', this.pantry);
-    console.log('recipeIngredients 1', recipeIngredients)
-    recipeIngredients.forEach(recipeIngredient => {
-      this.pantry.forEach(item => { 
-        if(item.ingredient === recipeIngredient.id && !ingredientsWeHave.includes(recipeIngredient)){
-          ingredientsWeHave.push(recipeIngredient)
+  findMissingIngredients(recipeIngredients) {
+    let ingredientsWeNeed = [];
+      let itemsWeHave = this.pantry.map(item => {
+        return item.ingredient;
+      })  
+      recipeIngredients.forEach(recipeItem => {
+        if (!itemsWeHave.includes(recipeItem.id)) {
+          ingredientsWeNeed.push(recipeItem);
         }
-      }) 
-    })
-    recipeIngredients.forEach(ingredient => {
-      if(!ingredientsWeHave.includes(ingredient)) {
-        ingredientsWeNeed.push(ingredient)
-      } 
-    })
-      return ingredientsWeNeed
+      })
+      return ingredientsWeNeed;
   }
 
+  findIngredientsWeNeedMoreOf(recipeIngredients) {
+    return this.pantry.reduce((ingredients, pantryItem) => {
+      recipeIngredients.forEach(recipeItem => {
+        if (recipeItem.id === pantryItem.ingredient) {
+          if (recipeItem.quantity.amount > pantryItem.amount) {
+            ingredients.push({
+              id: recipeItem.id,
+              quantity: {
+                amount: recipeItem.quantity.amount - pantryItem.amount,
+                unit: recipeItem.quantity.unit
+              }
+            })
+          }
+        }
+      })
+      return ingredients;
+    }, [])
+  }
+ 
+   returnCombinedArrays(recipeIngredients) {
+     const missingIngredients = this.findMissingIngredients(recipeIngredients);
+     const notEnoughIngredients = this.findIngredientsWeNeedMoreOf(recipeIngredients);
+     const totalMissingIngredients = [...missingIngredients,...notEnoughIngredients];
+     return totalMissingIngredients
+   }
+
   // findCostOfMissingIngredients() {
-  //   const missingItems = this.missingIngredients()
+  //   
   // }
 
 }
