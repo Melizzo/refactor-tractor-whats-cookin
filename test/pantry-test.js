@@ -46,6 +46,15 @@ describe('Pantry', () => {
     }).to.not.throw(Error);
   })
 
+  it('should not break if arguments in constructor are wrong data type', () => {
+    let pantry = new Pantry({name: 'Bill'})
+    expect(pantry).to.be.an.instanceof(Pantry)
+  })
+
+  it('should return undefined if an array is not the argument', () => {
+    expect(pantry.findMissingIngredients({name: 'Bill'})).to.equal(undefined)
+  })
+
   it('should be able to find missing ingredients', () => {
     expect(pantry.findMissingIngredients(recipeData[47].ingredients)).to.deep.equal([
       {
@@ -70,6 +79,10 @@ describe('Pantry', () => {
       },
       { name: 'zucchini', id: 11477, quantity: { amount: 1, unit: 'cup' } }  
     ])
+  })
+
+  it('should return undefined if an array is not the argument', () => {
+    expect(pantry.findIngredientsWeNeedMoreOf({name: 'Bill'})).to.equal(undefined)
   })
 
   it('it should find the ingredients that the user doesn/t have enough of', () => {

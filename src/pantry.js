@@ -1,13 +1,13 @@
 class Pantry {
   constructor(userIngredients) {
-    if(userIngredients) {
+    if(userIngredients instanceof Array) {
       this.pantry = userIngredients;
       this.neededIngredients = []
     }
   }
   
   findMissingIngredients(recipeIngredients) {
-    if(recipeIngredients) {
+    if(recipeIngredients instanceof Array) {
       let ingredientsWeNeed = [];
         let itemsWeHave = this.pantry.map(item => {
           return item.ingredient;
@@ -22,22 +22,24 @@ class Pantry {
   }
 
   findIngredientsWeNeedMoreOf(recipeIngredients) {
-    return this.pantry.reduce((ingredients, pantryItem) => {
-      recipeIngredients.forEach(recipeItem => {
-        if (recipeItem.id === pantryItem.ingredient) {
-          if (recipeItem.quantity.amount > pantryItem.amount) {
-            ingredients.push({
-              id: recipeItem.id,
-              quantity: {
-                amount: recipeItem.quantity.amount - pantryItem.amount,
-                unit: recipeItem.quantity.unit
-              }
-            })
+    if(recipeIngredients instanceof Array) {
+      return this.pantry.reduce((ingredients, pantryItem) => {
+        recipeIngredients.forEach(recipeItem => {
+          if (recipeItem.id === pantryItem.ingredient) {
+            if (recipeItem.quantity.amount > pantryItem.amount) {
+              ingredients.push({
+                id: recipeItem.id,
+                quantity: {
+                  amount: recipeItem.quantity.amount - pantryItem.amount,
+                  unit: recipeItem.quantity.unit
+                }
+              })
+            }
           }
-        }
-      })
-      return ingredients;
-    }, [])
+        })
+        return ingredients;
+      }, [])
+    }
   }
  
    returnCombinedArrays(recipeIngredients) {
