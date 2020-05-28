@@ -1,6 +1,6 @@
 class Recipe {
   constructor(recipe, ingredientsData) {
-    if(recipe, ingredientsData) {
+    if(recipe instanceof Object, ingredientsData instanceof Array) {
     this.name = recipe.name;
     this.id = recipe.id;
     this.ingredients = recipe.ingredients;
@@ -13,6 +13,7 @@ class Recipe {
   }
 
   searchIngredientsById(ingredientsData) {
+  if(ingredientsData) {
    const ingredientNames = this.ingredients.map(ingredient => {
       ingredientsData.find(item => {
         if(ingredient.id === item.id) {
@@ -22,6 +23,7 @@ class Recipe {
       return ingredient
     })
     return ingredientNames
+    } 
   }
 
   calculateCost() {
