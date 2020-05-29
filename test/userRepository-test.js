@@ -51,6 +51,4 @@ describe('User Repository', function() {
     expect(userRepository.findUser('hat')).to.equal('Sorry, \'hat\' is not a user id.')
     expect(userRepository.findUser()).to.equal('Sorry, \'undefined\' is not a user id.')
   });
-
-
 });

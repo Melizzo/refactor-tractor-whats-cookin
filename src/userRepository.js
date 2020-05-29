@@ -10,11 +10,7 @@ class UserRepository {
   }
 
   findUser(id) {
-    if (id === Number(id)) {
-      return this.userData.find((user) => user.id === id)
-    } else {
-      return `Sorry, '${id}' is not a user id.`
-    }
+    return id === Number(id) ? this.userData.find((user) => user.id === id) : `Sorry, '${id}' is not a user id.`
   }
 }
 
