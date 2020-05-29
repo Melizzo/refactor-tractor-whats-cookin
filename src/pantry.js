@@ -9,15 +9,15 @@ class Pantry {
   findMissingIngredients(recipeIngredients) {
     if(recipeIngredients instanceof Array) {
       let ingredientsWeNeed = [];
-        let itemsWeHave = this.pantry.map(item => {
-          return item.ingredient;
-        })  
-        recipeIngredients.forEach(recipeItem => {
-          if (!itemsWeHave.includes(recipeItem.id)) {
-            ingredientsWeNeed.push(recipeItem);
-          }
-        })
-        return ingredientsWeNeed;
+      let itemsWeHave = this.pantry.map(item => {
+        return item.ingredient;
+      })  
+      recipeIngredients.forEach(recipeItem => {
+        if (!itemsWeHave.includes(recipeItem.id)) {
+          ingredientsWeNeed.push(recipeItem);
+        }
+      })
+      return ingredientsWeNeed;
     }
   }
 
@@ -42,12 +42,12 @@ class Pantry {
     }
   }
  
-   returnCombinedArrays(recipeIngredients) {
-     const missingIngredients = this.findMissingIngredients(recipeIngredients);
-     const notEnoughIngredients = this.findIngredientsWeNeedMoreOf(recipeIngredients);
-     const totalMissingIngredients = [...missingIngredients,...notEnoughIngredients];
-     return totalMissingIngredients
-   }
+  returnCombinedArrays(recipeIngredients) {
+    const missingIngredients = this.findMissingIngredients(recipeIngredients);
+    const notEnoughIngredients = this.findIngredientsWeNeedMoreOf(recipeIngredients);
+    const totalMissingIngredients = [...missingIngredients,...notEnoughIngredients];
+    return totalMissingIngredients
+  }
 
   // findCostOfMissingIngredients() {
   //   
