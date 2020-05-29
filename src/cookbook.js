@@ -3,29 +3,14 @@ class Cookbook {
     this.recipes = data;
   }
 
-  // findRecipe(searchText) {
-  //   return this.recipes.filter(recipe => {
-  //     return recipe.ingredients.find(ingredient => {
-  //       return (ingredient.name.includes(searchText)) ||
-  //       (recipe.name.includes(searchText))
-  //     });
-  //   })
-  // }
-
-  // addNameToRecipeIngredients(ingredientsData) {
-  //   // const ingredientNames = this.recipes.map(recipe => {
-  //   //   recipe.ingredients.forEach(ingredient => {
-  //   //     ingredientsData.forEach(item => {
-  //   //      if(ingredient.id === item.id) {
-  //   //        ingredient['name'] = item.name
-  //   //      }
-  //   //    })
-  //   //   })  
-  //   //   return ingredient
-  //   // })
-  //   // console.log('ingredientNames', ingredientNames)
-  //   // return ingredientNames
-  //  }
+  findRecipe(searchText) {
+    return this.recipes.filter(recipe => {
+      return recipe.ingredients.find(ingredient => {
+        return (ingredient.name.includes(searchText)) ||
+        (recipe.name.includes(searchText))
+      });
+    })
+  }
 
   allPossibleIngredients() {
     let allIngredients = [];
@@ -36,7 +21,6 @@ class Cookbook {
         }
       })
     })
-    // console.log('allingredients', allIngredients)
     return allIngredients
   }
 

@@ -23,6 +23,19 @@ describe('User', () => {
     );
   });
 
+  it('Should have a name, id, and pantry', () => {
+    expect(user1.id).to.equal(1);
+    expect(user1.name).to.equal('Boba');
+    expect(user1.pantry).to.be.an('array');
+  });
+
+  it('Should return undefined if name, id, or pantry is not passed in, or passed in incorrectly.', () => {
+    let user2 = new User('dog', 'Tim', {})
+    expect(user2.id).to.equal(undefined);
+    expect(user2.name).to.equal('Tim');
+    expect(user2.pantry).to.equal(undefined);
+  });
+
   it('Should have a property of favoriteRecipes with a default value', () => {
     expect(user1.favoriteRecipes).to.eql([]);
   });
@@ -30,6 +43,8 @@ describe('User', () => {
   it('Should be able to add recipes to favoriteRecipes', () =>{
     user1.addToFavorites(recipeData[0])
     expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
+    user1.addToFavorites(recipeData[10])
+    expect(user1.favoriteRecipes.includes(recipeData[10])).to.eql(true);
   });
 
   it('Should be able to remove recipes from favoriteRecipes', () =>{
@@ -47,13 +62,5 @@ describe('User', () => {
     user1.addToFavorites(recipeData[0]);
     user1.addToFavorites(recipeData[1]);
     expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
-  });
-
-  it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-    expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
-  });
-
-  it('Should inform User if they lack required ingredients for a given recipe', () => {
-    expect(user1.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithPrice);
   });
 });

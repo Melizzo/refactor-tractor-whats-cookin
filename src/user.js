@@ -1,8 +1,8 @@
 class User {
   constructor(id, name, pantry) {
-    this.id = id;
-    this.name = name;
-    this.pantry = pantry;
+    this.id = id === Number(id) ? id : undefined;
+    this.name = name ? name : undefined;
+    this.pantry = pantry instanceof Array ? pantry : undefined;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
