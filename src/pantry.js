@@ -1,17 +1,17 @@
 class Pantry {
   constructor(userIngredients) {
-    this.pantry = userIngredients;
-    this.neededIngredients = []
+    if(userIngredients instanceof Array) {
+      this.pantry = userIngredients;
+      this.neededIngredients = []
+    }
   }
- 
-  // add an array to push in, for ins don't return arrays
   
   findMissingIngredients(recipeIngredients)  {
     let ingredientsWeHave = []; 
     const ingredientsWeNeed = []
     recipeIngredients.forEach(recipeIngredient => {
       this.pantry.forEach(item => { 
-        if(item.ingredient === recipeIngredient.id && !ingredientsWeHave.includes(recipeIngredient)){
+        if (item.ingredient === recipeIngredient.id && !ingredientsWeHave.includes(recipeIngredient)) {
           ingredientsWeHave.push(recipeIngredient)
         }
       }) 
@@ -21,11 +21,18 @@ class Pantry {
         ingredientsWeNeed.push(ingredient)
       } 
     })
-      return ingredientsWeNeed
+    return ingredientsWeNeed
+  }
+ 
+  returnCombinedArrays(recipeIngredients) {
+    const missingIngredients = this.findMissingIngredients(recipeIngredients);
+    const notEnoughIngredients = this.findIngredientsWeNeedMoreOf(recipeIngredients);
+    const totalMissingIngredients = [...missingIngredients,...notEnoughIngredients];
+    return totalMissingIngredients
   }
 
   // findCostOfMissingIngredients() {
-  //   const missingItems = this.missingIngredients()
+  //   
   // }
 
 }
