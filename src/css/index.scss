@@ -1,5 +1,7 @@
 
 @import 'variables';
+@import 'mixins';
+
 
 html {
   background-color: $main-background;
@@ -61,12 +63,12 @@ h3 {
   background-color: $button-background;
   border: 1px solid $black;
   width: 11%;
-  height: 45px;
   margin-top: 23px;
   margin-right: 3px;
   margin-left: 20px;
-  display: flex;
+  @include heightFlexMix(45px);
   align-items: center;
+  @include rounded-corners(8px);
 }
 
 .search-image {
@@ -79,6 +81,7 @@ h3 {
   border-right: 1px solid $black;
   font-size: 130%;
   margin: 1%;
+  @include rounded-corners(8px);
 }
 
 .search-image:hover,
@@ -148,6 +151,7 @@ h3 {
 
 img {
   cursor: pointer;
+  @include rounded-corners(5px);
 }
 
 .card {
