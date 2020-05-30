@@ -7,6 +7,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 import UserRepository from './userRepository'
+import domUpdates from '.'
 
 // GLOBALS
 let wcUsersData;
@@ -18,37 +19,37 @@ let cookbook
 
 // Fetching
 wcUsersData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
-.then(data => data.json())
-.then(data => data.wcUsersData)
-.catch(err => console.log(err.message))
+  .then(data => data.json())
+  .then(data => data.wcUsersData)
+  .catch(err => console.log(err.message))
 
 ingredientsData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
-.then(data => data.json())
-.then(data => data.ingredientsData)
-.catch(err => console.log(err.message))
+  .then(data => data.json())
+  .then(data => data.ingredientsData)
+  .catch(err => console.log(err.message))
 
 recipeData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
-.then(data => data.json())
-.then(data => data.recipeData)
-.catch(err => console.log(err.message))
+  .then(data => data.json())
+  .then(data => data.recipeData)
+  .catch(err => console.log(err.message))
 
 //PROMISE
 Promise.all([wcUsersData, ingredientsData, recipeData])
-.then(data => {
-  wcUsersData = data[0];
-  ingredientsData = data[1]
-  recipeData = data[2]
-})
-.then(() => {
-  userRepo = new UserRepository(wcUsersData);
+  .then(data => {
+    wcUsersData = data[0];
+    ingredientsData = data[1]
+    recipeData = data[2]
+  })
+  .then(() => {
+    userRepo = new UserRepository(wcUsersData);
 
-  onStartup(wcUsersData, ingredientsData)
-  // cookbook.recipesWithNames = cookbook.allPossibleIngredients()
-  cookbook.returnIngredientsWithNames(ingredientsData)
-})
-.catch(error => {
-  console.log('Something is amiss with promise all', error)
-});
+    onStartup(wcUsersData, ingredientsData)
+    // cookbook.recipesWithNames = cookbook.allPossibleIngredients()
+    cookbook.returnIngredientsWithNames(ingredientsData)
+  })
+  .catch(error => {
+    console.log('Something is amiss with promise all', error)
+  });
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
@@ -171,7 +172,7 @@ function cardButtonConditionals(event) {
     populateCards(cookbook.recipes);
   }
 
- else if (event.target.classList.contains('card-picture')) {
+  else if (event.target.classList.contains('card-picture')) {
     displayDirections(event);
   } 
 }
@@ -249,9 +250,9 @@ function searchRecipes() {
     cardArea.innerText = `No ${searchInput.value} for you!`
     searchInput.value = ''
   }
- }
+}
 
- function filterRecipesByTag() {
+function filterRecipesByTag() {
   cardArea.innerHTML = '';
   const filteredRecipes = [];
   const tagName = event.target.value;
@@ -286,7 +287,7 @@ function createRecipeCards(recipeArray) {
 } 
 
 
- /*
+/*
  
 
 
