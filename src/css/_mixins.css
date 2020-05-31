@@ -1,0 +1,8 @@
+@mixin rounded-corners($radius) {
+    border-radius: $radius;
+}
+
+@mixin heightFlexMix($height) {
+    display: flex;
+    height: $height;
+}

@@ -16,7 +16,8 @@
       <label for='view-recipes-to-cook' class='hidden'>View Recipes To Cook</label>
       <button id='view-recipes-to-cook' class='view-recipes-to-cook navButton'>View Recipes To Cook</button>
       <form class='search-bar'>
-        <select class="tags-menu">
+        <div class='div'><label for='tags-dropdown'>Dropdown menu:</label>
+        <select id='tags-dropdown' type = 'search' class="tags-menu">
           <option value="antipasti" class='menu-tags'>
             Antipasti
           </option>
@@ -75,12 +76,15 @@
             Starter
           </option>
         </select>
-        <label for='search-button' class='hidden'>Click here to search here</label>
+        </div>
+        <!-- <label for='search-button' class='hidden'>Click here to search here</label> -->
         <button id='search-button' class='search-button' type='button'>
           <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
         </button>
-        <label for='search-input' class='hidden'>Type search query here</label>
-        <input id='search-input' class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
+        <div class='div'>
+        <label for='search'>Type search query here:</label>
+        <input id='search' class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
+        </div>
       </form>
     </header>
     <main>
@@ -89,6 +93,26 @@
     </main>
   </body>
 </html>
+          
+            
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        
 
 
  

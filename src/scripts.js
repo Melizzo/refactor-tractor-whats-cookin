@@ -1,7 +1,7 @@
 
 // IMPORTS
-import './css/base.scss';
-import './css/styles.scss';
+import './css/_variables.scss';
+import './css/index.scss';
 import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
