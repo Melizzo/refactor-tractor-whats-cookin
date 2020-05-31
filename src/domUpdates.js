@@ -38,10 +38,11 @@ class DomUpdates {
     }
   }
     
-  viewRecipesToCook() {
+  viewRecipesToCook(user) {
     if (cardArea.classList.contains('all')) {
       cardArea.classList.remove('all')
     }
+    //console.log('recipeToCook', user)
     if (!user.recipesToCook.length) {
       addedRecipeButton.innerHTML = 'You have no Recipes To Cook!';
       this.populateCards(cookbook.recipes);
@@ -75,7 +76,7 @@ class DomUpdates {
     }
   }
     
-  recipesToCookCard(id) {
+  recipesToCookCard(user, cookbook, id) {
     let specificRecipe = cookbook.recipes.find(recipe => {
       if (recipe.id  === Number(id)) {
         return recipe;
@@ -97,7 +98,7 @@ class DomUpdates {
   }
 
     
-  displayDirections(event, cookbook, ingredientsData) {
+  displayDirections(event, cookbook, ingredientsData, pantry) {
     let newRecipeInfo = cookbook.recipes.find(recipe => {
       if (recipe.id === Number(event.target.id)) {
         return recipe;
@@ -131,21 +132,12 @@ class DomUpdates {
         ${instruction.instruction}</li>
         `)
     })
-    // console.log('user pantry', user.pantry);
-    // console.log(recipeObject.ingredients);
-    
-    // Compare recipeObject.ingredients (line 248) to user.pantry, and find a list of ingredients that are missing
-    pantry.returnCombinedArrays(recipeObject.ingredients)
-    console.log(pantry.returnCombinedArrays(recipeObject.ingredients));
-    
+
+    console.log('combined', pantry.returnCombinedArrays(recipeObject.ingredients))
+    //add functionality for dropDown for ingredients to purchase
   }
     
     
-  //This is going to need a listner, currently is reacting to other card button conditional -- or need to re phrase
-  // original card button conditional
-    
-    
-  
 
   populateCards(recipes) {
     cardArea.innerHTML = '';

@@ -62,8 +62,8 @@ let tagsMenu = document.querySelector('.tags-menu');
 
 cardArea.addEventListener('click', cardButtonConditionals)
 homeButton.addEventListener('click', cardButtonConditionals);
-favButton.addEventListener('click', domUpdates.viewFavorites);
-addedRecipeButton.addEventListener('click', domUpdates.viewRecipesToCook);
+favButton.addEventListener('click', viewFavorites);
+addedRecipeButton.addEventListener('click', viewRecipesToCook);
 searchRecipesButton.addEventListener('click', domUpdates.searchRecipes);
 tagsMenu.addEventListener('change', domUpdates.filterRecipesByTag);
 
@@ -75,8 +75,8 @@ function onStartup(wcUsersData) {
   //   return user.id === Number(userId);
   // });
   // console.log(wcUsersData);
+  // eslint-disable-next-line max-len
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
-  // console.log(user);
   cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
   domUpdates.populateCards(cookbook.recipes);
@@ -85,7 +85,8 @@ function onStartup(wcUsersData) {
 
 function cardButtonConditionals(event) {
   if (event.target.classList.contains('add-button')) {
-    domUpdates.recipesToCookCard(event);
+    domUpdates.recipesToCookCard(user, cookbook, event.target.id);
+    console.log('userInCardButtonConditionals', user)
   } 
   if (event.target.classList.contains('favorite')) {
     domUpdates.favoriteCard(event);
@@ -95,10 +96,16 @@ function cardButtonConditionals(event) {
     favButton.innerHTML = 'View Favorites'; // have to do equivelant for recipesToCook
     domUpdates.populateCards(cookbook.recipes);
   }
- else if (event.target.classList.contains('card-picture')) {
-    domUpdates.displayDirections(event, cookbook, ingredientsData);
+  else if (event.target.classList.contains('card-picture')) {
+    domUpdates.displayDirections(event, cookbook, ingredientsData, pantry);
   } 
 }
+
+function  viewRecipesToCook() {
+  domUpdates.viewRecipesToCook(user) 
+}
+
+function viewFavorite
 
 // function filterRecipes(id) {
 //   let specificRecipe = cookbook.recipes.find(recipe => {
