@@ -109,9 +109,9 @@ function viewFavorites() {
   domUpdates.viewFavorites(user, cookbook)
 }
 
-// function searchRecipes() {
-//   domUpdates.searchRecipes()
-// }
+function searchRecipes() {
+  domUpdates.searchRecipes(cookbook)
+}
 
 // function filterRecipes(id) {
 //   let specificRecipe = cookbook.recipes.find(recipe => {
