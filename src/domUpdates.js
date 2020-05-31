@@ -113,8 +113,12 @@ class DomUpdates {
     $${costInDollars}</span><br><br>
     <strong>You will need: </strong><span class='ingredients recipe-info'></span>
     <strong>You are missing:</strong><span class='missing-ingredients'></span><br>
-    <div class='div'><label for='ingredients-dropdown'>Ingredients menu:</label>
-    <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select></div>
+    <div class='div'><label for='ingredients-dropdown'>Ingredients menu drop down:</label><br>
+    <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select>
+    <label for='number-dropdown'>Numbers drop down:</label>
+    <input type='number' class='number-dropdown' required min='0' max='24'></input>
+    <button type='button' name='button' class='ingredients-button'>Purchase</button></div>
+    <br>
     <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
