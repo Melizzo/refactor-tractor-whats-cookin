@@ -65,7 +65,7 @@ homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 addedRecipeButton.addEventListener('click', viewRecipesToCook);
 searchRecipesButton.addEventListener('click', searchRecipes);
-tagsMenu.addEventListener('change', domUpdates.filterRecipesByTag);
+tagsMenu.addEventListener('change', filterRecipesDropdown);
 
 
 function onStartup(wcUsersData) {
@@ -120,6 +120,10 @@ function searchRecipes() {
 //     }
 //   })
 // }
+
+function filterRecipesDropdown() {
+  domUpdates.filterRecipesByTag(cookbook)
+}
 
 
 
