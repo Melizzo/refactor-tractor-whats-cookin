@@ -138,7 +138,12 @@ class DomUpdates {
     })
     //add functionality for dropDown for ingredients to purchase
   }
-    
+
+  ingredientsPurchaseDropDown() {
+    let missing = documents.querySelector('.missing-ingredients');
+    missing.insertAdjacentHTML('afterbegin', ``)
+  }
+
   populateCards(recipes) {
     cardArea.innerHTML = '';
     if (cardArea.classList.contains('all')) {
