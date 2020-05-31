@@ -113,6 +113,8 @@ class DomUpdates {
     $${costInDollars}</span><br><br>
     <strong>You will need: </strong><span class='ingredients recipe-info'></span>
     <strong>You are missing:</strong><span class='missing-ingredients'></span><br>
+    <div class='div'><label for='ingredients-dropdown'>Ingredients menu:</label>
+    <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select></div>
     <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
@@ -136,13 +138,20 @@ class DomUpdates {
         ${instruction.instruction}</li>
         `)
     })
-    //add functionality for dropDown for ingredients to purchase
+    this.ingredientsPurchaseDropDown(allMissingIngredients)
   }
 
-  ingredientsPurchaseDropDown() {
-    let missing = documents.querySelector('.missing-ingredients');
-    missing.insertAdjacentHTML('afterbegin', ``)
+  ingredientsPurchaseDropDown(allMissingIngredients) {
+    console.log('missing', allMissingIngredients) 
+    const ingredientsMenu = document.querySelector('.ingredients-menu')
+    allMissingIngredients.forEach(ingredient => {
+      console.log('ingredient', ingredient)
+      ingredientsMenu.insertAdjacentHTML('beforeend', `
+      <option value="${ingredient.name}" class='ingredient-tags'>
+          ${ingredient.name}
+        </option>`)})
   }
+
 
   populateCards(recipes) {
     cardArea.innerHTML = '';
