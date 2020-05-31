@@ -110,8 +110,6 @@ class DomUpdates {
     let cost = recipeObject.calculateCost()
     let costInDollars = (cost / 100).toFixed(2)
     const allMissingIngredients = pantry.returnCombinedArrays(recipeObject.ingredients)
-    console.log(allMissingIngredients);
-    
     cardArea.classList.add('all');
     cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
     <p class='all-recipe-info'>
@@ -123,7 +121,7 @@ class DomUpdates {
     </span></ol>
     </p>`;
     let ingredientsSpan = document.querySelector('.ingredients');
-    let missingIngredientsSpan = document.querySelector('.missing-ingredients')
+    const missingIngredientsSpan = document.querySelector('.missing-ingredients')
     let instructionsSpan = document.querySelector('.instructions');
     recipeObject.ingredients.forEach(ingredient => {
       ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
@@ -137,7 +135,6 @@ class DomUpdates {
         ${ingredient.name}</li></ul>
         `)
     })
-
     recipeObject.instructions.forEach(instruction => {
       instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
         ${instruction.instruction}</li>
