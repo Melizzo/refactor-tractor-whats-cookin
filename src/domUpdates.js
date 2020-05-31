@@ -107,8 +107,6 @@ class DomUpdates {
     })
         
     let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
-    console.log('recipeObject', recipeObject)
-        
     let cost = recipeObject.calculateCost()
     let costInDollars = (cost / 100).toFixed(2)
     cardArea.classList.add('all');
@@ -117,6 +115,7 @@ class DomUpdates {
     <strong>It will cost: </strong><span class='cost recipe-info'>
     $${costInDollars}</span><br><br>
     <strong>You will need: </strong><span class='ingredients recipe-info'></span>
+
     <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
