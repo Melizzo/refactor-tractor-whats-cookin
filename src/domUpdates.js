@@ -148,7 +148,7 @@ class DomUpdates {
     this.createRecipeCards(recipes)
   }
 
-  searchRecipes() {
+  searchRecipes(cookbook) {
     cardArea.innerHTML = '';
     let searchInput = document.querySelector('.search-input')
     const searchedRecipesArray = [];
