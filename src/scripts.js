@@ -7,7 +7,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 import UserRepository from './userRepository'
-import domUpdates from './domUpdates'
+import DomUpdates from './domUpdates'
 
 // GLOBALS
 let wcUsersData;
@@ -15,7 +15,8 @@ let userRepo;
 let recipeData;
 let ingredientsData;
 let user, pantry;
-let cookbook 
+let cookbook;
+const domUpdates = new DomUpdates()
 
 // Fetching
 wcUsersData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
@@ -59,8 +60,8 @@ let searchRecipesButton = document.querySelector('.search-button')
 let tagsMenu = document.querySelector('.tags-menu');
 
 
-cardArea.addEventListener('click', domUpdates.cardButtonConditionals);
-homeButton.addEventListener('click', domUpdates.cardButtonConditionals);
+cardArea.addEventListener('click', cardButtonConditionals)
+homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', domUpdates.viewFavorites);
 addedRecipeButton.addEventListener('click', domUpdates.viewRecipesToCook);
 searchRecipesButton.addEventListener('click', domUpdates.searchRecipes);
@@ -74,7 +75,6 @@ function onStartup(wcUsersData) {
   //   return user.id === Number(userId);
   // });
   // console.log(wcUsersData);
-  
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   // console.log(user);
   cookbook = new Cookbook(recipeData);
@@ -82,6 +82,33 @@ function onStartup(wcUsersData) {
   domUpdates.populateCards(cookbook.recipes);
   domUpdates.greetUser(user);
 }
+
+function cardButtonConditionals(event) {
+  if (event.target.classList.contains('add-button')) {
+    domUpdates.recipesToCookCard(event);
+  } 
+  if (event.target.classList.contains('favorite')) {
+    domUpdates.favoriteCard(event);
+  }
+  if (event.target.classList.contains('home')) {
+    addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
+    favButton.innerHTML = 'View Favorites'; // have to do equivelant for recipesToCook
+    domUpdates.populateCards(cookbook.recipes);
+  }
+ else if (event.target.classList.contains('card-picture')) {
+    domUpdates.displayDirections(event, cookbook, ingredientsData);
+  } 
+}
+
+// function filterRecipes(id) {
+//   let specificRecipe = cookbook.recipes.find(recipe => {
+//     if (recipe.id  === Number(id)) {
+//       return recipe;
+//     }
+//   })
+// }
+
+
 
 // function viewFavorites() {
 //   if (cardArea.classList.contains('all')) {
@@ -285,6 +312,8 @@ function onStartup(wcUsersData) {
 //     </div>`)
 //   })
 // } 
+
+
 
 
 /*
