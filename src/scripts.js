@@ -65,7 +65,7 @@ homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 addedRecipeButton.addEventListener('click', viewRecipesToCook);
 searchRecipesButton.addEventListener('click', searchRecipes);
-tagsMenu.addEventListener('change', domUpdates.filterRecipesByTag);
+tagsMenu.addEventListener('change', filterRecipesDropdown);
 
 
 function onStartup(wcUsersData) {
@@ -109,9 +109,9 @@ function viewFavorites() {
   domUpdates.viewFavorites(user, cookbook)
 }
 
-// function searchRecipes() {
-//   domUpdates.searchRecipes()
-// }
+function searchRecipes() {
+  domUpdates.searchRecipes(cookbook)
+}
 
 // function filterRecipes(id) {
 //   let specificRecipe = cookbook.recipes.find(recipe => {
@@ -120,6 +120,10 @@ function viewFavorites() {
 //     }
 //   })
 // }
+
+function filterRecipesDropdown() {
+  domUpdates.filterRecipesByTag(cookbook)
+}
 
 
 
