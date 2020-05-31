@@ -89,7 +89,7 @@ function cardButtonConditionals(event) {
     console.log('userInCardButtonConditionals', user)
   } 
   if (event.target.classList.contains('favorite')) {
-    domUpdates.favoriteCard(event);
+    domUpdates.favoriteCard(event, user, cookbook);
   }
   if (event.target.classList.contains('home')) {
     addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
@@ -105,7 +105,9 @@ function  viewRecipesToCook() {
   domUpdates.viewRecipesToCook(user) 
 }
 
-function viewFavorite
+function viewFavorites() {
+  domUpdates.viewFavorites(user, cookbook)
+}
 
 // function filterRecipes(id) {
 //   let specificRecipe = cookbook.recipes.find(recipe => {

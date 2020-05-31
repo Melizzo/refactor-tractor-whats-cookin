@@ -15,6 +15,7 @@ let cookbook = new Cookbook()
 
 let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
+let favButton = document.querySelector('.view-favorites');
 
 
 
@@ -23,7 +24,7 @@ class DomUpdates {
 
   }
 
-  viewFavorites() {
+  viewFavorites(user, cookbook) {
     if (cardArea.classList.contains('all')) {
       cardArea.classList.remove('all')
     }
@@ -60,7 +61,7 @@ class DomUpdates {
         user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
   }
     
-  favoriteCard(event) {
+  favoriteCard(event, user, cookbook) {
     let specificRecipe = cookbook.recipes.find(recipe => {
       if (recipe.id  === Number(event.target.id)) {
         return recipe;
