@@ -17,8 +17,6 @@ let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
 let favButton = document.querySelector('.view-favorites');
 
-
-
 class DomUpdates {
   constructor() {
 
@@ -43,7 +41,6 @@ class DomUpdates {
     if (cardArea.classList.contains('all')) {
       cardArea.classList.remove('all')
     }
-    //console.log('recipeToCook', user)
     if (!user.recipesToCook.length) {
       addedRecipeButton.innerHTML = 'You have no Recipes To Cook!';
       this.populateCards(cookbook.recipes);
@@ -104,11 +101,8 @@ class DomUpdates {
       if (recipe.id === Number(event.target.id)) {
         return recipe;
       }
-    })
-        
-    let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
-    console.log('recipeObject', recipeObject)
-        
+    })    
+    let recipeObject = new Recipe(newRecipeInfo, ingredientsData);        
     let cost = recipeObject.calculateCost()
     let costInDollars = (cost / 100).toFixed(2)
     cardArea.classList.add('all');
@@ -138,8 +132,6 @@ class DomUpdates {
     //add functionality for dropDown for ingredients to purchase
   }
     
-    
-
   populateCards(recipes) {
     cardArea.innerHTML = '';
     if (cardArea.classList.contains('all')) {
@@ -148,7 +140,7 @@ class DomUpdates {
     this.createRecipeCards(recipes)
   }
 
-  searchRecipes() {
+  searchRecipes(cookbook) {
     cardArea.innerHTML = '';
     let searchInput = document.querySelector('.search-input')
     const searchedRecipesArray = [];
@@ -167,7 +159,7 @@ class DomUpdates {
     }
   }
 
-  filterRecipesByTag() {
+  filterRecipesByTag(cookbook) {
     cardArea.innerHTML = '';
     const filteredRecipes = [];
     const tagName = event.target.value;
@@ -179,7 +171,6 @@ class DomUpdates {
     this.createRecipeCards(filteredRecipes)
   }
 
-  //move to DOM updates
   createRecipeCards(recipeArray) {
     recipeArray.forEach(recipe => {
       let favorited = recipe.isFavorite ? "favorite-active" : ""
