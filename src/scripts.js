@@ -34,6 +34,7 @@ recipeData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recip
   .then(data => data.recipeData)
   .catch(err => console.log(err.message))
 
+
 //PROMISE
 Promise.all([wcUsersData, ingredientsData, recipeData])
   .then(data => {
@@ -111,6 +112,20 @@ function viewFavorites() {
 
 function searchRecipes() {
   domUpdates.searchRecipes(cookbook)
+}
+
+function postNewIngredientsData() {
+  fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "name": user.name,
+      "id": user.id,
+      "pantry": user.pantry
+    })
+  })
 }
 
 // function filterRecipes(id) {
