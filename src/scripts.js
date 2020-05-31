@@ -64,7 +64,7 @@ cardArea.addEventListener('click', cardButtonConditionals)
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 addedRecipeButton.addEventListener('click', viewRecipesToCook);
-searchRecipesButton.addEventListener('click', domUpdates.searchRecipes);
+searchRecipesButton.addEventListener('click', searchRecipes);
 tagsMenu.addEventListener('change', domUpdates.filterRecipesByTag);
 
 
@@ -108,6 +108,10 @@ function  viewRecipesToCook() {
 function viewFavorites() {
   domUpdates.viewFavorites(user, cookbook)
 }
+
+// function searchRecipes() {
+//   domUpdates.searchRecipes()
+// }
 
 // function filterRecipes(id) {
 //   let specificRecipe = cookbook.recipes.find(recipe => {
