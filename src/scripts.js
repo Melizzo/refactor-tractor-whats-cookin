@@ -76,23 +76,23 @@ function onStartup(wcUsersData) {
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
-  domUpdates.populateCards(cookbook.recipes);
+  domUpdates.populateCards(cookbook.recipes, cardArea);
   domUpdates.greetUser(user);
 }
   
 function cardButtonConditionals(event) {
   if (event.target.classList.contains('add-button')) {
-    domUpdates.recipesToCookCard(user, cookbook, event.target.id);
+    domUpdates.recipesToCookCard(user, cookbook, event.target.id, addedRecipeButton);
   } 
 
   if (event.target.classList.contains('favorite')) {
-    domUpdates.favoriteCard(event, user, cookbook);
+    domUpdates.favoriteCard(event, user, cookbook, favButton);
   }
 
   if (event.target.classList.contains('home')) {
     addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
     favButton.innerHTML = 'View Favorites'; // have to do equivelant for recipesToCook
-    domUpdates.populateCards(cookbook.recipes);
+    domUpdates.populateCards(cookbook.recipes, cardArea);
   }
 
   if (event.target.classList.contains('ingredients-button')) {
@@ -100,20 +100,20 @@ function cardButtonConditionals(event) {
     let numberInput = document.getElementById('number-input')
     postNewIngredientsData(ingredientsDropDown.value, numberInput.value)
   } else if (event.target.classList.contains('card-picture')) {
-    domUpdates.displayDirections(event, cookbook, ingredientsData, pantry);
+    domUpdates.displayDirections(event, cookbook, ingredientsData, pantry, cardArea);
   } 
 }
 
 function  viewRecipesToCook() {
-  domUpdates.viewRecipesToCook(user) 
+  domUpdates.viewRecipesToCook(user, cardArea, addedRecipeButton, cookbook) 
 }
 
 function viewFavorites() {
-  domUpdates.viewFavorites(user, cookbook)
+  domUpdates.viewFavorites(user, cookbook, cardArea, favButton)
 }
 
 function searchRecipes() {
-  domUpdates.searchRecipes(cookbook)
+  domUpdates.searchRecipes(cookbook, cardArea)
 }
 
 function postNewIngredientsData(ingredientID, quantity) {
@@ -137,7 +137,7 @@ function postNewIngredientsData(ingredientID, quantity) {
 
 
 function filterRecipesDropdown() {
-  domUpdates.filterRecipesByTag(cookbook)
+  domUpdates.filterRecipesByTag(cookbook, cardArea)
 }
 
 
