@@ -59,8 +59,6 @@ let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
 let searchRecipesButton = document.querySelector('.search-button')
 let tagsMenu = document.querySelector('.tags-menu');
-let numberDropDown = document.querySelector('.number-dropdown')
-let ingredientsDropDown = document.querySelector('.ingredients-menu')
 let ingredientsButton = document.querySelector('.ingredients-button')
 
 
@@ -103,7 +101,6 @@ function onStartup(wcUsersData) {
     if(event.target.classList.contains('ingredients-button')) {
       let ingredientsDropDown = document.querySelector('.ingredients-menu')
       let numberInput = document.getElementById('number-input')
-      console.log(numberInput)
       postNewIngredientsData(ingredientsDropDown.value, numberInput.value)
     }
   else if (event.target.classList.contains('card-picture')) {
