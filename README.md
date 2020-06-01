@@ -40,6 +40,6 @@ To verify that it is setup correctly, run `npm start` in your terminal. Go to `h
 
 ## Contributors
 
-* **[Jeremiah Black](https://github.com/jeremiahblakol)**
+* **[Jeremiah Black](https://github.com/jeremiahblackol)**
 * **[Melissa VanKempen](https://github.com/Melizzo)**
 * **[Bill Wilke](https://github.com/billwilke42)**
