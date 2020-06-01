@@ -16,6 +16,7 @@ let cookbook = new Cookbook()
 let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
 let favButton = document.querySelector('.view-favorites');
+let numberDropDown = document.querySelector('.number-dropdown');
 
 class DomUpdates {
   constructor() {
@@ -113,6 +114,12 @@ class DomUpdates {
     $${costInDollars}</span><br><br>
     <strong>You will need: </strong><span class='ingredients recipe-info'></span>
     <strong>You are missing:</strong><span class='missing-ingredients'></span><br>
+    <div class='div'><label for='ingredients-dropdown'>Ingredients menu drop down:</label>
+    <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select><br>
+    <label for='number-dropdown'>Numbers drop down:</label>
+    <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input>
+    <button type='button' name='button' class='ingredients-button'>Purchase</button></div>
+    <br>
     <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
@@ -136,9 +143,20 @@ class DomUpdates {
         ${instruction.instruction}</li>
         `)
     })
-    //add functionality for dropDown for ingredients to purchase
+    this.ingredientsPurchaseDropDown(allMissingIngredients)
   }
-    
+
+  ingredientsPurchaseDropDown(allMissingIngredients) {
+    const ingredientsMenu = document.querySelector('.ingredients-menu')
+    allMissingIngredients.forEach(ingredient => {
+      console.log('ingredient', ingredient)
+      ingredientsMenu.insertAdjacentHTML('beforeend', `
+      <option value="${ingredient.id}" class='ingredient-tags'>
+          ${ingredient.name}
+        </option>`)})
+  }
+
+
   populateCards(recipes) {
     cardArea.innerHTML = '';
     if (cardArea.classList.contains('all')) {
