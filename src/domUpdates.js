@@ -1,22 +1,11 @@
 /* eslint-disable max-len */
-import Pantry from './pantry';
 import Recipe from './recipe';
-import User from './user';
 import Cookbook from './cookbook';
-import UserRepository from './userRepository'
-import scripts from './scripts'
 
-let wcUsersData;
-let userRepo;
-let recipeData;
-let ingredientsData;
-let user, pantry;
 let cookbook = new Cookbook()
-
 let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
 let favButton = document.querySelector('.view-favorites');
-let numberDropDown = document.querySelector('.number-dropdown');
 
 class DomUpdates {
   constructor() {
