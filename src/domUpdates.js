@@ -1,55 +1,39 @@
 /* eslint-disable max-len */
-import Pantry from './pantry';
 import Recipe from './recipe';
-import User from './user';
-import Cookbook from './cookbook';
-import UserRepository from './userRepository'
-import scripts from './scripts'
 
-let wcUsersData;
-let userRepo;
-let recipeData;
-let ingredientsData;
-let user, pantry;
-let cookbook = new Cookbook()
-
-let cardArea = document.querySelector('.all-cards');
-let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
-let favButton = document.querySelector('.view-favorites');
-let numberDropDown = document.querySelector('.number-dropdown');
 
 class DomUpdates {
   constructor() {
 
   }
 
-  viewFavorites(user, cookbook) {
-    if (cardArea.classList.contains('all')) {
-      cardArea.classList.remove('all')
+  viewFavorites(user, cookbook, area, button) {
+    if (area.classList.contains('all')) {
+      area.classList.remove('all')
     }
     if (!user.favoriteRecipes.length) {
-      favButton.innerHTML = 'You have no favorites!';
-      this.populateCards(cookbook.recipes);
+      button.innerHTML = 'You have no favorites!';
+      this.populateCards(cookbook.recipes, area);
       return
     } else {
-      favButton.innerHTML = 'Refresh Favorites'
-      cardArea.innerHTML = '';
-      this.createRecipeCards(user.favoriteRecipes)
+      button.innerHTML = 'Refresh Favorites'
+      area.innerHTML = '';
+      this.createRecipeCards(user.favoriteRecipes, area)
     }
   }
     
-  viewRecipesToCook(user) {
-    if (cardArea.classList.contains('all')) {
-      cardArea.classList.remove('all')
+  viewRecipesToCook(user, area, button, cookbook) {
+    if (area.classList.contains('all')) {
+      area.classList.remove('all')
     }
     if (!user.recipesToCook.length) {
-      addedRecipeButton.innerHTML = 'You have no Recipes To Cook!';
-      this.populateCards(cookbook.recipes);
+      button.innerHTML = 'You have no Recipes To Cook!';
+      this.populateCards(cookbook.recipes, area);//not getting these recipes
       return
     } else {
-      addedRecipeButton.innerHTML = 'Refresh Recipes To Cook'
-      cardArea.innerHTML = '';
-      this.createRecipeCards(user.recipesToCook)
+      button.innerHTML = 'Refresh Recipes To Cook'
+      area.innerHTML = '';
+      this.createRecipeCards(user.recipesToCook, area)
     }
   }
     
@@ -59,7 +43,7 @@ class DomUpdates {
         user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
   }
     
-  favoriteCard(event, user, cookbook) {
+  favoriteCard(event, user, cookbook, button) {
     let specificRecipe = cookbook.recipes.find(recipe => {
       if (recipe.id  === Number(event.target.id)) {
         return recipe;
@@ -67,7 +51,7 @@ class DomUpdates {
     })
     if (!event.target.classList.contains('favorite-active')) {
       event.target.classList.add('favorite-active');
-      favButton.innerHTML = 'View Favorites';
+      button.innerHTML = 'View Favorites';
       user.addToFavorites(specificRecipe);
     } else if (event.target.classList.contains('favorite-active')) {
       event.target.classList.remove('favorite-active');
@@ -75,7 +59,7 @@ class DomUpdates {
     }
   }
     
-  recipesToCookCard(user, cookbook, id) {
+  recipesToCookCard(user, cookbook, id, button) {
     let specificRecipe = cookbook.recipes.find(recipe => {
       if (recipe.id  === Number(id)) {
         return recipe;
@@ -90,14 +74,14 @@ class DomUpdates {
         
     if (event.target.innerText !== '+') {
       event.target.innerText = "+"
-      addedRecipeButton.innerHTML = 'View Recipes To Cook';
+      button.innerHTML = 'View Recipes To Cook';
       user.removeFromRecipesToCook(specificRecipe)
       return
     } 
   }
 
     
-  displayDirections(event, cookbook, ingredientsData, pantry) {
+  displayDirections(event, cookbook, ingredientsData, pantry, area) {
     let newRecipeInfo = cookbook.recipes.find(recipe => {
       if (recipe.id === Number(event.target.id)) {
         return recipe;
@@ -107,8 +91,8 @@ class DomUpdates {
     let cost = recipeObject.calculateCost()
     let costInDollars = (cost / 100).toFixed(2)
     const allMissingIngredients = pantry.returnCombinedArrays(recipeObject.ingredients)
-    cardArea.classList.add('all');
-    cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
+    area.classList.add('all');
+    area.innerHTML = `<h3>${recipeObject.name}</h3>
     <p class='all-recipe-info'>
     <strong>It will cost: </strong><span class='cost recipe-info'>
     $${costInDollars}</span><br><br>
@@ -149,7 +133,6 @@ class DomUpdates {
   ingredientsPurchaseDropDown(allMissingIngredients) {
     const ingredientsMenu = document.querySelector('.ingredients-menu')
     allMissingIngredients.forEach(ingredient => {
-      console.log('ingredient', ingredient)
       ingredientsMenu.insertAdjacentHTML('beforeend', `
       <option value="${ingredient.id}" class='ingredient-tags'>
           ${ingredient.name}
@@ -157,16 +140,16 @@ class DomUpdates {
   }
 
 
-  populateCards(recipes) {
-    cardArea.innerHTML = '';
-    if (cardArea.classList.contains('all')) {
-      cardArea.classList.remove('all')
+  populateCards(recipes, area) {
+    area.innerHTML = '';
+    if (area.classList.contains('all')) {
+      area.classList.remove('all')
     }
-    this.createRecipeCards(recipes)
+    this.createRecipeCards(recipes, area)
   }
 
-  searchRecipes(cookbook) {
-    cardArea.innerHTML = '';
+  searchRecipes(cookbook, area) {
+    area.innerHTML = '';
     let searchInput = document.querySelector('.search-input')
     const searchedRecipesArray = [];
     for (let i = 0; i < cookbook.recipes.length; i++) {
@@ -176,16 +159,16 @@ class DomUpdates {
       } 
     }
     if(searchInput.value && searchedRecipesArray.length > 0) {
-      this.createRecipeCards(searchedRecipesArray)
+      this.createRecipeCards(searchedRecipesArray, area)
       searchInput.value = ''
     } else {
-      cardArea.innerText = `No ${searchInput.value} for you!`
+      area.innerText = `No ${searchInput.value} for you!`
       searchInput.value = ''
     }
   }
 
-  filterRecipesByTag(cookbook) {
-    cardArea.innerHTML = '';
+  filterRecipesByTag(cookbook, area) {
+    area.innerHTML = '';
     const filteredRecipes = [];
     const tagName = event.target.value;
     cookbook.recipes.filter((recipe) => {
@@ -193,14 +176,14 @@ class DomUpdates {
         filteredRecipes.push(recipe);
       }
     });
-    this.createRecipeCards(filteredRecipes)
+    this.createRecipeCards(filteredRecipes, area)
   }
 
-  createRecipeCards(recipeArray) {
+  createRecipeCards(recipeArray, area) {
     recipeArray.forEach(recipe => {
       let favorited = recipe.isFavorite ? "favorite-active" : ""
       let recipeToCook = recipe.isRecipeToCook ? "-" : "+"
-      cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
+      area.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
         class='card'>
         <header id='${recipe.id}' class='card-header'>
         <label for='add-button' class='hidden'>Click to add recipe</label>
