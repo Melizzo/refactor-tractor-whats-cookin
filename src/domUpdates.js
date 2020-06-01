@@ -16,6 +16,7 @@ let cookbook = new Cookbook()
 let cardArea = document.querySelector('.all-cards');
 let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
 let favButton = document.querySelector('.view-favorites');
+let numberDropDown = document.querySelector('.number-dropdown');
 
 class DomUpdates {
   constructor() {
@@ -116,7 +117,7 @@ class DomUpdates {
     <div class='div'><label for='ingredients-dropdown'>Ingredients menu drop down:</label>
     <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select><br>
     <label for='number-dropdown'>Numbers drop down:</label>
-    <input type='number' class='number-dropdown' required min='0' max='24'></input>
+    <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input>
     <button type='button' name='button' class='ingredients-button'>Purchase</button></div>
     <br>
     <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
@@ -146,12 +147,11 @@ class DomUpdates {
   }
 
   ingredientsPurchaseDropDown(allMissingIngredients) {
-    console.log('missing', allMissingIngredients) 
     const ingredientsMenu = document.querySelector('.ingredients-menu')
     allMissingIngredients.forEach(ingredient => {
       console.log('ingredient', ingredient)
       ingredientsMenu.insertAdjacentHTML('beforeend', `
-      <option value="${ingredient.name}" class='ingredient-tags'>
+      <option value="${ingredient.id}" class='ingredient-tags'>
           ${ingredient.name}
         </option>`)})
   }
