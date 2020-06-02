@@ -103,6 +103,7 @@ class DomUpdates {
     <label for='number-dropdown'>Numbers drop down:</label>
     <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input>
     <button type='button' name='button' class='ingredients-button'>Purchase</button>
+    <span id="cooked-error"></span>
     <button type='button' name='cooked-button' id="${recipeObject.id}"class='recipe-cooked-button'>I've cooked this recipe!</button>
     </div>
     <br>

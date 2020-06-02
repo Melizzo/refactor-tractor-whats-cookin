@@ -144,26 +144,32 @@ function postNewIngredientsData(ingredientID, quantity) {
 }
 
 function postUsedIngredientsData(currentRecipe) {
-  if()
-currentRecipe.ingredients.forEach(ingredient => {
-  fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      "userID": user.id,
-      "ingredientID": ingredient.id,
-      "ingredientModification": -Math.abs(ingredient.quantity.amount)
+  if(pantry.returnCombinedArrays(currentRecipe.ingredients).length > 0) {
+    currentRecipe.ingredients.forEach(ingredient => {
+      fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "userID": user.id,
+          "ingredientID": ingredient.id,
+          "ingredientModification": -Math.abs(ingredient.quantity.amount)
+        })
+      })
+        .then(response => response.json())
+        .then((data) => {
+          console.log('Success:', data) 
+        })
+        .catch(err => console.log(err.message));
     })
-  })
-    .then(response => response.json())
-    .then((data) => {
-      console.log('Success:', data) 
-    })
-    .catch(err => console.log(err.message));
-  })
+  } 
+  else {
+    const errorMsg = document.getElementById('cooked-error');
+    errorMsg.innerText = `You need to purchase all the needed ingredients first!`
+  }
 }
+
  
 
 function filterRecipesDropdown() {
