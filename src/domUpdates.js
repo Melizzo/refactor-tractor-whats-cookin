@@ -102,7 +102,9 @@ class DomUpdates {
     <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select><br>
     <label for='number-dropdown'>Numbers drop down:</label>
     <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input>
-    <button type='button' name='button' class='ingredients-button'>Purchase</button></div>
+    <button type='button' name='button' class='ingredients-button'>Purchase</button>
+    <button type='button' name='cooked-button' id="${recipeObject.id}"class='recipe-cooked-button'>I've cooked this recipe!</button>
+    </div>
     <br>
     <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>

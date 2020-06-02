@@ -71,9 +71,9 @@ searchRecipesButton.addEventListener('click', searchRecipes);
 tagsMenu.addEventListener('change', filterRecipesDropdown);
 
 function onStartup(wcUsersData) {
-  let randomNum = (Math.floor(Math.random() * 50) - 1)
+  // let randomNum = (Math.floor(Math.random() * 50) - 1)
   // eslint-disable-next-line max-len
-  user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
+  user = new User(wcUsersData[0].id, wcUsersData[0].name, wcUsersData[0].pantry);
   cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
   domUpdates.populateCards(cookbook.recipes, cardArea);
@@ -99,9 +99,17 @@ function cardButtonConditionals(event) {
     let ingredientsDropDown = document.querySelector('.ingredients-menu')
     let numberInput = document.getElementById('number-input')
     postNewIngredientsData(ingredientsDropDown.value, numberInput.value)
-  } else if (event.target.classList.contains('card-picture')) {
+  } 
+  if(event.target.classList.contains('recipe-cooked-button')) {
+    const currentRecipe = findCurrentRecipe(event.target.id)
+    postUsedIngredientsData(currentRecipe)
+  }
+  else if (event.target.classList.contains('card-picture')) {
     domUpdates.displayDirections(event, cookbook, ingredientsData, pantry, cardArea);
   } 
+}
+function findCurrentRecipe(id){
+ return recipeData.find(recipe => recipe.id == id)
 }
 
 function  viewRecipesToCook() {
@@ -135,6 +143,28 @@ function postNewIngredientsData(ingredientID, quantity) {
     .catch(err => console.log(err.message));
 }
 
+function postUsedIngredientsData(currentRecipe) {
+  if()
+currentRecipe.ingredients.forEach(ingredient => {
+  fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "userID": user.id,
+      "ingredientID": ingredient.id,
+      "ingredientModification": -Math.abs(ingredient.quantity.amount)
+    })
+  })
+    .then(response => response.json())
+    .then((data) => {
+      console.log('Success:', data) 
+    })
+    .catch(err => console.log(err.message));
+  })
+}
+ 
 
 function filterRecipesDropdown() {
   domUpdates.filterRecipesByTag(cookbook, cardArea)
