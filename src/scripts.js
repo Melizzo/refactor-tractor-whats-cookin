@@ -71,6 +71,7 @@ searchRecipesButton.addEventListener('click', searchRecipes);
 tagsMenu.addEventListener('change', filterRecipesDropdown);
 
 function onStartup(wcUsersData) {
+  // Ability to do random onLoad:
   // let randomNum = (Math.floor(Math.random() * 50) - 1)
   // eslint-disable-next-line max-len
   user = new User(wcUsersData[0].id, wcUsersData[0].name, wcUsersData[0].pantry);
@@ -84,17 +85,14 @@ function cardButtonConditionals(event) {
   if (event.target.classList.contains('add-button')) {
     domUpdates.recipesToCookCard(user, cookbook, event.target.id, addedRecipeButton);
   } 
-
   if (event.target.classList.contains('favorite')) {
     domUpdates.favoriteCard(event, user, cookbook, favButton);
   }
-
   if (event.target.classList.contains('home')) {
-    addedRecipeButton.innerHTML = 'Recipes To Cook'; // have to do equivelant for recipesToCook
-    favButton.innerHTML = 'View Favorites'; // have to do equivelant for recipesToCook
+    addedRecipeButton.innerHTML = 'Recipes To Cook';
+    favButton.innerHTML = 'View Favorites'; 
     domUpdates.populateCards(cookbook.recipes, cardArea);
   }
-
   if (event.target.classList.contains('ingredients-button')) {
     let ingredientsDropDown = document.querySelector('.ingredients-menu')
     let numberInput = document.getElementById('number-input')
@@ -108,6 +106,7 @@ function cardButtonConditionals(event) {
     domUpdates.displayDirections(event, cookbook, ingredientsData, pantry, cardArea);
   } 
 }
+
 function findCurrentRecipe(id){
  return recipeData.find(recipe => recipe.id == id)
 }
@@ -169,8 +168,6 @@ function postUsedIngredientsData(currentRecipe) {
     errorMsg.innerText = `You need to purchase all the needed ingredients first!`
   }
 }
-
- 
 
 function filterRecipesDropdown() {
   domUpdates.filterRecipesByTag(cookbook, cardArea)
