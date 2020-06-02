@@ -59,6 +59,17 @@ h3 {
   width: 30%;
 }
 
+.recipe-cooked-button {
+  background-color: $button-background;
+  border: 1px solid $black;
+  width: 60%;
+  @include rounded-corners(5px)
+}
+
+#cooked-error {
+  color: $light-background;
+}
+
 .ingredients-button {
   background-color: $button-background;
   border: 1px solid $black;
@@ -299,6 +310,7 @@ img {
   .instruction-tag {
     display: none;
   }
+
   .search-bar {
     height: 10%;
     margin: 10px 0px 10px 0px;
