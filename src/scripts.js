@@ -45,16 +45,14 @@ Promise.all([wcUsersData, ingredientsData, recipeData])
   })
   .then(() => {
     userRepo = new UserRepository(wcUsersData);
-
     onStartup(wcUsersData, ingredientsData)
-    // cookbook.recipesWithNames = cookbook.allPossibleIngredients()
     cookbook.returnIngredientsWithNames(ingredientsData)
   })
   .catch(error => {
-    // eslint-disable-next-line no-console
     console.log('Something is amiss with promise all', error)
   });
 
+  // Query Selectors
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
@@ -62,7 +60,7 @@ let addedRecipeButton = document.querySelector('.view-recipes-to-cook')
 let searchRecipesButton = document.querySelector('.search-button')
 let tagsMenu = document.querySelector('.tags-menu');
 
-
+// Event Listeners
 cardArea.addEventListener('click', cardButtonConditionals)
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
@@ -70,10 +68,10 @@ addedRecipeButton.addEventListener('click', viewRecipesToCook);
 searchRecipesButton.addEventListener('click', searchRecipes);
 tagsMenu.addEventListener('change', filterRecipesDropdown);
 
+// Functions
 function onStartup(wcUsersData) {
   // Ability to do random onLoad:
   let randomNum = (Math.floor(Math.random() * 50) - 1)
-  // eslint-disable-next-line max-len
   user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
@@ -123,7 +121,7 @@ function viewFavorites() {
 function searchRecipes() {
   domUpdates.searchRecipes(cookbook, cardArea)
 }
-
+// Post
 function postNewIngredientsData(ingredientID, quantity) {
   fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
     method: 'POST',
@@ -154,7 +152,6 @@ function refreshUserPantry(ingredientID, quantity) {
     user.pantry.push({"ingredient": Number(ingredientID), "amount": Number(quantity)})
   }
 }
-
 
 function postUsedIngredientsData(currentRecipe) {
   if(pantry.returnCombinedArrays(currentRecipe.ingredients).length === 0) {
