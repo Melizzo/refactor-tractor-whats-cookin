@@ -100,11 +100,12 @@ class DomUpdates {
     <strong>You are missing:</strong><span class='missing-ingredients'></span><br>
     <div class='div'><label for='ingredients-dropdown'>Ingredients menu drop down:</label>
     <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select><br>
+    <label for='number-dropdown'>Amount:</label>
     <input type='number' id='number-input'  aria-label="number-input"
-    aria-hidden="true" class='number-dropdown' required min='0' max='24'></input>
+    aria-hidden="true" class='number-dropdown' required min='0' max='24'></input> <br>
     <button type='button' name='button' class='ingredients-button'>Purchase</button></div>
     <br>
-    <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
+    <strong class='instruction-tag'>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
     let ingredientsSpan = document.querySelector('.ingredients');
