@@ -72,9 +72,9 @@ tagsMenu.addEventListener('change', filterRecipesDropdown);
 
 function onStartup(wcUsersData) {
   // Ability to do random onLoad:
-  // let randomNum = (Math.floor(Math.random() * 50) - 1)
+  let randomNum = (Math.floor(Math.random() * 50) - 1)
   // eslint-disable-next-line max-len
-  user = new User(wcUsersData[0].id, wcUsersData[0].name, wcUsersData[0].pantry);
+  user = new User(wcUsersData[randomNum].id, wcUsersData[randomNum].name, wcUsersData[randomNum].pantry);
   cookbook = new Cookbook(recipeData);
   pantry = new Pantry(user.pantry)
   domUpdates.populateCards(cookbook.recipes, cardArea);

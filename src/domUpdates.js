@@ -90,6 +90,7 @@ class DomUpdates {
     let recipeObject = new Recipe(newRecipeInfo, ingredientsData);        
     let cost = recipeObject.calculateCost()
     let costInDollars = (cost / 100).toFixed(2)
+    
     const allMissingIngredients = pantry.returnCombinedArrays(recipeObject.ingredients)
     area.classList.add('all');
     area.innerHTML = `<h3>${recipeObject.name}</h3>

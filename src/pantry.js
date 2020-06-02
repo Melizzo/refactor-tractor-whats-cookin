@@ -29,6 +29,7 @@ class Pantry {
             if (recipeItem.quantity.amount > pantryItem.amount) {
               ingredients.push({
                 id: recipeItem.id,
+                name: recipeItem.name,
                 quantity: {
                   amount: recipeItem.quantity.amount - pantryItem.amount,
                   unit: recipeItem.quantity.unit
