@@ -29,6 +29,7 @@ class Pantry {
             if (recipeItem.quantity.amount > pantryItem.amount) {
               ingredients.push({
                 id: recipeItem.id,
+                name: recipeItem.name,
                 quantity: {
                   amount: recipeItem.quantity.amount - pantryItem.amount,
                   unit: recipeItem.quantity.unit
@@ -48,11 +49,6 @@ class Pantry {
     const totalMissingIngredients = [...missingIngredients,...notEnoughIngredients];
     return totalMissingIngredients
   }
-
-  // findCostOfMissingIngredients() {
-  //   
-  // }
-
 }
 
 export default Pantry;

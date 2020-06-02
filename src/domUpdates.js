@@ -79,17 +79,17 @@ class DomUpdates {
       return
     } 
   }
-
-    
-  displayDirections(event, cookbook, ingredientsData, pantry, area) {
+ 
+  displayDirections(id, cookbook, ingredientsData, pantry, area) {
     let newRecipeInfo = cookbook.recipes.find(recipe => {
-      if (recipe.id === Number(event.target.id)) {
+      if (recipe.id === Number(id)) {
         return recipe;
       }
     })    
     let recipeObject = new Recipe(newRecipeInfo, ingredientsData);        
     let cost = recipeObject.calculateCost()
     let costInDollars = (cost / 100).toFixed(2)
+    
     const allMissingIngredients = pantry.returnCombinedArrays(recipeObject.ingredients)
     area.classList.add('all');
     area.innerHTML = `<h3>${recipeObject.name}</h3>
@@ -100,10 +100,12 @@ class DomUpdates {
     <strong>You are missing:</strong><span class='missing-ingredients'></span><br>
     <div class='div'><label for='ingredients-dropdown'>Ingredients menu drop down:</label>
     <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select><br>
-    <label for='number-dropdown'>Amount:</label>
-    <input type='number' id='number-input'  aria-label="number-input"
-    aria-hidden="true" class='number-dropdown' required min='0' max='24'></input> <br>
-    <button type='button' name='button' class='ingredients-button'>Purchase</button></div>
+    <label for='number-dropdown'>Numbers drop down:</label>
+    <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input>
+    <button type='button' id="${recipeObject.id}" name='button' class='ingredients-button'>Purchase</button>
+    <span id="cooked-error"></span>
+    <button type='button' name='cooked-button' id="${recipeObject.id}"class='recipe-cooked-button'>I've cooked this recipe!</button>
+    </div>
     <br>
     <strong class='instruction-tag'>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
@@ -139,7 +141,6 @@ class DomUpdates {
           ${ingredient.name}
         </option>`)})
   }
-
 
   populateCards(recipes, area) {
     area.innerHTML = '';
