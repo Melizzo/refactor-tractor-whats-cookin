@@ -79,8 +79,7 @@ class DomUpdates {
       return
     } 
   }
-
-    
+ 
   displayDirections(id, cookbook, ingredientsData, pantry, area) {
     let newRecipeInfo = cookbook.recipes.find(recipe => {
       if (recipe.id === Number(id)) {
@@ -142,7 +141,6 @@ class DomUpdates {
           ${ingredient.name}
         </option>`)})
   }
-
 
   populateCards(recipes, area) {
     area.innerHTML = '';

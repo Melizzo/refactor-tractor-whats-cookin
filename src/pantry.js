@@ -49,11 +49,6 @@ class Pantry {
     const totalMissingIngredients = [...missingIngredients,...notEnoughIngredients];
     return totalMissingIngredients
   }
-
-  // findCostOfMissingIngredients() {
-  //   
-  // }
-
 }
 
 export default Pantry;

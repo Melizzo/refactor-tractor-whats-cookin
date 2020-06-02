@@ -44,7 +44,6 @@ Promise.all([wcUsersData, ingredientsData, recipeData])
     recipeData = data[2]
   })
   .then(() => {
-    userRepo = new UserRepository(wcUsersData);
     onStartup(wcUsersData, ingredientsData)
     cookbook.returnIngredientsWithNames(ingredientsData)
   })
