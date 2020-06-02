@@ -81,9 +81,9 @@ class DomUpdates {
   }
 
     
-  displayDirections(event, cookbook, ingredientsData, pantry, area) {
+  displayDirections(id, cookbook, ingredientsData, pantry, area) {
     let newRecipeInfo = cookbook.recipes.find(recipe => {
-      if (recipe.id === Number(event.target.id)) {
+      if (recipe.id === Number(id)) {
         return recipe;
       }
     })    
@@ -103,7 +103,7 @@ class DomUpdates {
     <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select><br>
     <label for='number-dropdown'>Numbers drop down:</label>
     <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input>
-    <button type='button' name='button' class='ingredients-button'>Purchase</button>
+    <button type='button' id="${recipeObject.id}" name='button' class='ingredients-button'>Purchase</button>
     <span id="cooked-error"></span>
     <button type='button' name='cooked-button' id="${recipeObject.id}"class='recipe-cooked-button'>I've cooked this recipe!</button>
     </div>

@@ -97,13 +97,14 @@ function cardButtonConditionals(event) {
     let ingredientsDropDown = document.querySelector('.ingredients-menu')
     let numberInput = document.getElementById('number-input')
     postNewIngredientsData(ingredientsDropDown.value, numberInput.value)
+    domUpdates.displayDirections(event.target.id, cookbook, ingredientsData, pantry, cardArea)
   } 
   if(event.target.classList.contains('recipe-cooked-button')) {
     const currentRecipe = findCurrentRecipe(event.target.id)
-    postUsedIngredientsData(currentRecipe)
+    postUsedIngredientsData(currentRecipe);
   }
   else if (event.target.classList.contains('card-picture')) {
-    domUpdates.displayDirections(event, cookbook, ingredientsData, pantry, cardArea);
+    domUpdates.displayDirections(event.target.id, cookbook, ingredientsData, pantry, cardArea);
   } 
 }
 
@@ -131,19 +132,32 @@ function postNewIngredientsData(ingredientID, quantity) {
     },
     body: JSON.stringify({
       "userID": user.id,
-      "ingredientID": ingredientID,
-      "ingredientModification": quantity
+      "ingredientID": Number(ingredientID),
+      "ingredientModification": Number(quantity)
     })
   })
     .then(response => response.json())
     .then((data) => {
-      console.log('Success:', data) 
+    console.log('Success:', data) 
+    refreshUserPantry(ingredientID, quantity);
     })
     .catch(err => console.log(err.message));
 }
 
+function refreshUserPantry(ingredientID, quantity) {
+  user.pantry.forEach(ingredient => {
+    if(ingredient.ingredient == Number(ingredientID)) {
+      ingredient.amount += Number(quantity)
+    }
+  }) 
+  if(!user.pantry.includes(Number(ingredientID))) {
+    user.pantry.push({"ingredient": Number(ingredientID), "amount": Number(quantity)})
+  }
+}
+
+
 function postUsedIngredientsData(currentRecipe) {
-  if(pantry.returnCombinedArrays(currentRecipe.ingredients).length > 0) {
+  if(pantry.returnCombinedArrays(currentRecipe.ingredients).length === 0) {
     currentRecipe.ingredients.forEach(ingredient => {
       fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
         method: 'POST',
@@ -162,10 +176,12 @@ function postUsedIngredientsData(currentRecipe) {
         })
         .catch(err => console.log(err.message));
     })
+    const errorMsg = document.getElementById('cooked-error');
+    errorMsg.innerText = `You can cook the item!`
   } 
   else {
     const errorMsg = document.getElementById('cooked-error');
-    errorMsg.innerText = `You need to purchase all the needed ingredients first!`
+    errorMsg.innerText = `Please purchase more items to cook the recipe`
   }
 }
 
