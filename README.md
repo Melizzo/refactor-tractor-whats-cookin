@@ -1,8 +1,8 @@
 # Refactor Tractor - What's Cookin
 
-A Mod 2, group project that simulates an food-based website that allows a user to be able to save recipes, add recipes to cook, and search/filter recipes by tags and keywords. 
+A Mod 2, group project that simulates a food-based website that allows a user to be able to save recipes, add recipes to cook, and search/filter recipes by tags and keywords. 
 
-The details of this project are outline in [this project spec](https://frontend.turing.io/projects/module-2/refactor-tractor-wc.html).
+The details of this project are outlined in [this project spec](https://frontend.turing.io/projects/module-2/refactor-tractor-wc.html).
 
 ## Clone This Repo
 
@@ -26,12 +26,18 @@ Then install the library dependencies. Run:
 npm install
 ```
 
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page that displays the what's cookin' page, with a random user on start. 
+To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page that displays the "What's Cookin'" page, with a random user on start. 
+
+## GIF 
+
+
+  <a href="https://media.giphy.com/media/UsNRN8mk8JHxjEW7Re/giphy.gif"><img          src="https://media.giphy.com/media/UsNRN8mk8JHxjEW7Re/giphy.gif"/></a>
+
 
 ## Learning Goals
 
 1. Utulize APIs 
-2. Utulize Fetch: get & post
+2. Utulize Fetch: GET & POST
 3. Testing all files, including sad paths
 4. Testing with Chai Spies
 4. SRP and DRY code
