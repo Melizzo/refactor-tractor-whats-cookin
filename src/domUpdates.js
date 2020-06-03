@@ -101,13 +101,11 @@ class DomUpdates {
     <div class='div'><label for='ingredients-dropdown'>Ingredients menu drop down:</label>
     <select id='ingredients-dropdown' type ='search' class="ingredients-menu"></select><br>
     <label for='number-dropdown'>Numbers drop down:</label>
-    <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input>
+    <input type='number' id='number-input' class='number-dropdown' required min='0' max='24'></input><br>
     <button type='button' id="${recipeObject.id}" name='button' class='ingredients-button'>Purchase</button>
     <span id="cooked-error"></span>
-    <button type='button' name='cooked-button' id="${recipeObject.id}"class='recipe-cooked-button'>I've cooked this recipe!</button>
-    </div>
-    <br>
-    <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
+    <br><button type='button' name='cooked-button' id="${recipeObject.id}"class='recipe-cooked-button'>I've cooked this recipe!</button></div>
+    <br><strong class='instruction-tag'>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
     let ingredientsSpan = document.querySelector('.ingredients');

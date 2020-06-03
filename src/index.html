@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta charset='UTF-8'>
     <title>Whats Cookin</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap' rel='stylesheet'>
   </head>
   <body>
+    
     <header class='main-header'>
       <h1>What's Cookin'</h1>
       <p class='user-info'>Welcome, <span class='user-name'>User</span>.</p>
@@ -16,8 +18,9 @@
       <label for='view-recipes-to-cook' class='hidden'>View Recipes To Cook</label>
       <button id='view-recipes-to-cook' class='view-recipes-to-cook navButton'>View Recipes To Cook</button>
       <form class='search-bar'>
-        <div class='div'><label for='tags-dropdown'>Dropdown menu:</label>
-        <select id='tags-dropdown' type = 'search' class="tags-menu">
+        <div class='div'>
+        <select id='tags-dropdown'  aria-label="Sidebar menu"
+        aria-hidden="true"type = 'search' class="tags-menu">
           <option value="antipasti" class='menu-tags'>
             Antipasti
           </option>
@@ -82,11 +85,12 @@
           <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
         </button>
         <div class='div'>
-        <label for='search'>Type search query here:</label>
-        <input id='search' class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
+        <input id='search'  aria-label="search-input"
+        aria-hidden="true" class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
         </div>
       </form>
     </header>
+  </section>
     <main>
       <section class='all-cards'>
       </section>
